@@ -11,12 +11,18 @@ const SideBar = () => {
   const location = useLocation();
   const [isBlogOpen, setIsBlogOpen] = useState(false);
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (paths) => {
+    if (Array.isArray(paths)) {
+      return paths.includes(location.pathname);
+    }
+    return location.pathname === paths;
+  };
 
-  const linkStyle = (path) =>
+  const linkStyle = (paths) =>
     `nav-link d-flex align-items-center gap-2 rounded px-3 py-2 fw-medium ${
-      isActive(path) ? 'bg-brand text-white shadow-sm' : 'text-dark'
+      isActive(paths) ? 'bg-brand text-white shadow-sm' : 'text-dark'
     }`;
+
 
   return (
     <div
@@ -71,6 +77,11 @@ const SideBar = () => {
           <li className="nav-item mt-2">
             <Link to="/dashboard/products" className={linkStyle('/dashboard/products')}>
               <FaBox /> Product
+            </Link>
+          </li>
+          <li className="nav-item mt-2">
+            <Link to="/dashboard/onboarding" className={linkStyle(['/dashboard/onboarding', '/dashboard/onboarding/create'])}>
+              <FaBox /> Onboarding
             </Link>
           </li>
 

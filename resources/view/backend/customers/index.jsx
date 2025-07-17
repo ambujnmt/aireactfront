@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { confirmDelete } from '../../../../src/utils/confirmDelete';
 
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
 
@@ -33,27 +34,9 @@ const Dashboard = () => {
   };
 
   const handleDelete = (id) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await axios.delete(`http://site2demo.in/ai-beauty/api/admin/delete/user/${id}`);
-          Swal.fire('Deleted!', 'Customer has been deleted.', 'success');
-          fetchCustomers();
-        } catch (error) {
-          console.error(error);
-          Swal.fire('Failed!', 'There was a problem deleting.', 'error');
-        }
-      }
-    });
+    confirmDelete(`http://site2demo.in/ai-beauty/api/admin/delete/user/${id}`, fetchCustomers);
   };
+
 
   const indexOfLast = currentPage * customersPerPage;
   const indexOfFirst = indexOfLast - customersPerPage;

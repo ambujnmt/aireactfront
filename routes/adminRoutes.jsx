@@ -7,6 +7,9 @@ import Logout from '../resources/view/backend/inc/Logout';
 import Ai from '../resources/view/backend/ai_feature/index';
 import Customer from '../resources/view/backend/customers/index';
 import Products from '../resources/view/backend/products/index';
+import Onboarding from '../resources/view/backend/onboarding/index';
+import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
+import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
 import PrivateRoute from './privateRoute';
 
 const UserRoutes = () => {
@@ -32,6 +35,9 @@ const UserRoutes = () => {
         <Route path="ai-feature" element={<Ai />} />
         <Route path="products" element={<Products />} />
         <Route path="customers" element={<Customer />} />
+        <Route path="onboarding" element={<Onboarding />} />
+        <Route path="onboarding/create" element={<CreateOnboardingQuestion />} />
+        <Route path="onboarding/edit/:id" element={<EditOnboardingQuestion />} />
       </Route>
     </Routes>
   );
