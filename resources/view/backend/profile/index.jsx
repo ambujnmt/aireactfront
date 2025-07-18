@@ -20,7 +20,7 @@ const AdminProfile = () => {
         name: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
-        image: user.avatar || '',
+        image: user.avatar ? `https://site2demo.in/ai-beauty/admin_assets/images/users/${user.avatar}` : '', // <-- path set here
         role: user.role || 'Administrator',
       });
     }
