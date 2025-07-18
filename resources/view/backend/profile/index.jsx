@@ -11,6 +11,7 @@ const AdminProfile = () => {
     role: '',
   });
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state for button
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -45,6 +46,7 @@ const AdminProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
     try {
       const formData = new FormData();
       formData.append('name', profile.name);
@@ -77,6 +79,8 @@ const AdminProfile = () => {
     } catch (error) {
       Swal.fire('Error', 'Something went wrong!', 'error');
       console.error(error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -161,8 +165,19 @@ const AdminProfile = () => {
             </div>
 
             <div className="text-end">
-              <button type="submit" className="btn btn-primary px-4">
-                Save Changes
+              <button
+                type="submit"
+                className="btn btn-primary px-4"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Saving...
+                  </>
+                ) : (
+                  'Save Changes'
+                )}
               </button>
             </div>
           </form>
