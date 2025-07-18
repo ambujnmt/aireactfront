@@ -18,7 +18,7 @@ const EditOnboardingQuestion = () => {
 
   // Fetch existing data
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/admin/onboarding/questions-edit/${id}`)
+    axios.get(`https://site2demo.in/ai-beauty/api/admin/onboarding/questions-edit/${id}`)
       .then(res => {
         const data = res.data.data;
         setFormData({

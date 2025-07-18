@@ -37,7 +37,7 @@ const CreateOnboardingQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://site2demo.in/ai-beauty/api/admin/onboarding/questions', formData);
+      await axios.post('https://site2demo.in/ai-beauty/api/admin/onboarding/questions', formData);
       toast.success("Question created successfully!");
       navigate(-1); // Go back
     } catch (error) {

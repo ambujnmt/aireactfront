@@ -16,7 +16,7 @@ const Onboarding = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get('http://site2demo.in/ai-beauty/api/admin/onboarding/questions');
+      const response = await axios.get('https://site2demo.in/ai-beauty/api/admin/onboarding/questions');
       setQuestions(response.data.data || []);
     } catch (error) {
       console.error('Error fetching questions:', error);
@@ -24,7 +24,7 @@ const Onboarding = () => {
   };
 
   const handleDelete = (id) => {
-	  confirmDelete(`http://site2demo.in/ai-beauty/api/admin/delete/OnboardingQuestion/${id}`, fetchQuestions);
+	  confirmDelete(`https://site2demo.in/ai-beauty/api/admin/delete/OnboardingQuestion/${id}`, fetchQuestions);
 	};
 
   const indexOfLast = currentPage * questionsPerPage;

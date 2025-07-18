@@ -55,7 +55,7 @@ const AdminProfile = () => {
       }
 
       const res = await axios.post(
-        'http://localhost:8000/api/admin/update-profile',
+        'https://site2demo.in/ai-beauty/api/admin/update-profile',
         formData,
         {
           headers: {

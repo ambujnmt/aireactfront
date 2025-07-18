@@ -20,7 +20,7 @@ const Dashboard = () => {
   // 5. Function to call API and save data in state
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get('http://site2demo.in/ai-beauty/api/admin/user-list');
+      const response = await axios.get('https://site2demo.in/ai-beauty/api/admin/user-list');
       const customerData = response.data.data || []; // Make sure data exists
       setCustomers(customerData);
     } catch (error) {
