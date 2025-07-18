@@ -6,6 +6,14 @@ import { Link } from 'react-router-dom';
 import { FaBell, FaSearch } from 'react-icons/fa';
 
 function Header() {
+  const [profile, setProfile] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    image: '',
+    role: '',
+  });
+
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
@@ -26,6 +34,19 @@ function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setProfile({
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        image: user.avatar || '', // Ensure your localStorage uses 'avatar'
+        role: user.role || 'Administrator',
+      });
+    }
+  }, []);
+
   const closeAllDropdowns = () => {
     setShowNotif(false);
     setShowProfile(false);
@@ -44,6 +65,7 @@ function Header() {
     >
       <div className="container-fluid d-flex justify-content-between align-items-center">
         {/* Logo or Title */}
+        {/* Uncomment if needed */}
         {/* <div className="d-flex align-items-center gap-2">
           <img src={logo} alt="Logo" height="35" />
           <h5 className="mb-0 fw-bold text-dark d-none d-md-block">AI Beauty</h5>
@@ -102,12 +124,15 @@ function Header() {
           {/* Profile */}
           <div className="position-relative" ref={profileRef}>
             <img
-              src="https://i.pravatar.cc/40?img=12"
-              alt="User"
-              className="rounded-circle"
+              src={profile.image || 'https://site2demo.in/ai-beauty/public/static_assets/images/users/dummy-user.jpg'}
+              alt="User Avatar"
+              className="rounded-circle border shadow"
               width="40"
               height="40"
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                objectFit: 'cover',
+              }}
               onClick={() => {
                 setShowProfile(!showProfile);
                 setShowNotif(false);
