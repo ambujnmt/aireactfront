@@ -20,7 +20,7 @@ const AdminProfile = () => {
         name: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
-        image: `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}` : '', // <-- path set here
+        image: user.avatar ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}` : '', // <-- path set here
         role: user.role || 'Administrator',
       });
     }
@@ -70,7 +70,7 @@ const AdminProfile = () => {
         Swal.fire('Success', 'Profile updated successfully', 'success');
         const updatedUser = {
           ...profile,
-          avatar: profile.image,
+          avatar: res.data.avatar || profile.image,
         };
         localStorage.setItem('user', JSON.stringify(updatedUser));
       } else {
