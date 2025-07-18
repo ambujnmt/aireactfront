@@ -18,13 +18,13 @@ const UserRoutes = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Login />} />
-      <Route path="login" element={<Login />} />
-      <Route path="admin/login" element={<Login />} />
-      <Route path="logout" element={<Logout />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/admin/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
 
       {/* Protected Layout with Nested Routes */}
       <Route
-        path="dashboard"
+        path="/dashboard"
         element={
           <PrivateRoute>
             <AppLayout />
