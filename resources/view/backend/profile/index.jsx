@@ -90,7 +90,7 @@ const AdminProfile = () => {
         <div className="card-body">
           <div className="text-center mb-4">
             <img
-              src={profile.image || 'https://site2demo.in/ai-beauty/public/static_assets/images/users/dummy-user.jpg'}
+              src={profile.image || 'https://site2demo.in/ai-beauty/static_assets/images/users/dummy-user.jpg'}
               alt="Admin Avatar"
               className="rounded-circle shadow"
               width="120"
