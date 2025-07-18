@@ -11,6 +11,7 @@ import Onboarding from '../resources/view/backend/onboarding/index';
 import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
 import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
 import AdminProfile from '../resources/view/backend/profile/';
+import Configration from '../resources/view/backend/configration/index';
 import PrivateRoute from './privateRoute';
 
 const UserRoutes = () => {
@@ -40,6 +41,7 @@ const UserRoutes = () => {
         <Route path="onboarding" element={<Onboarding />} />
         <Route path="onboarding/create" element={<CreateOnboardingQuestion />} />
         <Route path="onboarding/edit/:id" element={<EditOnboardingQuestion />} />
+        <Route path="configration" element={<Configration />} />
       </Route>
     </Routes>
   );

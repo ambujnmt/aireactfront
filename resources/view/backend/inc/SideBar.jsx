@@ -100,10 +100,10 @@ const SideBar = () => {
             {isBlogOpen && (
               <ul className="nav flex-column ms-4">
                 <li className="nav-item">
-                  <Link to="/blog" className={linkStyle('/blog')}>List</Link>
+                  <Link to="/dashboard/customers" className={linkStyle('/blog')}>List</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/blog/create" className={linkStyle('/blog/create')}>Create</Link>
+                  <Link to="/dashboard/customers" className={linkStyle('/blog/create')}>Create</Link>
                 </li>
               </ul>
             )}
@@ -111,22 +111,22 @@ const SideBar = () => {
 
           {/* Section: Other Static Links */}
           <li className="nav-item mt-2">
-            <Link to="/highlights" className={linkStyle('/highlights')}>
+            <Link to="/dashboard/customers" className={linkStyle('/highlights')}>
               <FaStar /> Highlights
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/category" className={linkStyle('/category')}>
+            <Link to="/dashboard/customers" className={linkStyle('/category')}>
               <FaListAlt /> Category
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/banner" className={linkStyle('/banner')}>
+            <Link to="/dashboard/customers" className={linkStyle('/banner')}>
               <FaImage /> Banner
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/pages" className={linkStyle('/pages')}>
+            <Link to="/dashboard/customers" className={linkStyle('/pages')}>
               <FaFileAlt /> Pages
             </Link>
           </li>
@@ -136,12 +136,12 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/social-media" className={linkStyle('/social-media')}>
+            <Link to="/dashboard/customers" className={linkStyle('/social-media')}>
               <FaFacebookF /> Social Media
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/configuration" className={linkStyle('/configuration')}>
+            <Link to="/dashboard/configration" className={linkStyle('/configration')}>
               <FaCogs /> Configuration
             </Link>
           </li>
