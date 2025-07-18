@@ -8,6 +8,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -17,7 +18,6 @@ function Login() {
   }, [navigate]);
 
   const validateEmail = (email) => {
-    // Simple regex for email validation
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
@@ -28,7 +28,6 @@ function Login() {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
 
-    // Validation
     if (!trimmedEmail || !trimmedPassword) {
       Swal.fire('Error!', 'Both email and password are required.', 'error');
       return;
@@ -43,6 +42,8 @@ function Login() {
       Swal.fire('Error!', 'Password must be at least 6 characters long.', 'error');
       return;
     }
+
+    setLoading(true); // Start loading
 
     try {
       const res = await axios.post('https://site2demo.in/ai-beauty/api/admin/auth/login', {
@@ -76,6 +77,8 @@ function Login() {
         title: 'Login Failed',
         text: msg,
       });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -96,6 +99,7 @@ function Login() {
               style={styles.input}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
             />
             <input
               type="password"
@@ -103,8 +107,15 @@ function Login() {
               style={styles.input}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
             />
-            <button type="submit" style={styles.button}>Log In</button>
+            <button
+              type="submit"
+              style={{ ...styles.button, opacity: loading ? 0.6 : 1 }}
+              disabled={loading}
+            >
+              {loading ? 'Logging in...' : 'Log In'}
+            </button>
           </form>
         </div>
       </div>
@@ -114,7 +125,6 @@ function Login() {
 
 export default Login;
 
-// Styling (unchanged)
 const styles = {
   wrapper: {
     display: 'flex',
