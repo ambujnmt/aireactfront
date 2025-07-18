@@ -10,6 +10,7 @@ import Products from '../resources/view/backend/products/index';
 import Onboarding from '../resources/view/backend/onboarding/index';
 import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
 import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
+import AdminProfile from '../resources/view/backend/profile/';
 import PrivateRoute from './privateRoute';
 
 const UserRoutes = () => {
@@ -32,6 +33,7 @@ const UserRoutes = () => {
       >
         {/* These will render inside <Outlet /> in AppLayout */}
         <Route index element={<Dashboard />} />
+        <Route path="profile" element={<AdminProfile />} />
         <Route path="ai-feature" element={<Ai />} />
         <Route path="products" element={<Products />} />
         <Route path="customers" element={<Customer />} />

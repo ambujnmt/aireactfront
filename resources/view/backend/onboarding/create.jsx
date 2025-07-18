@@ -37,7 +37,7 @@ const CreateOnboardingQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/admin/onboarding/questions', formData);
+      await axios.post('http://site2demo.in/ai-beauty/api/admin/onboarding/questions', formData);
       toast.success("Question created successfully!");
       navigate(-1); // Go back
     } catch (error) {
@@ -136,7 +136,7 @@ const CreateOnboardingQuestion = () => {
               )}
               <button
                 type="button"
-                className="btn btn-sm btn-outline-primary mt-2"
+                className="btn btn-sm btn-outline-primary text-white bg-brand mt-2"
                 onClick={addOption}
               >
                 + Add Option

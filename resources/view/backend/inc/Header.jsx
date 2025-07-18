@@ -39,10 +39,10 @@ function Header() {
     >
       <div className="container-fluid d-flex justify-content-between align-items-center">
         {/* Left Logo or Title */}
-        <div className="d-flex align-items-center gap-2">
+        {/*<div className="d-flex align-items-center gap-2">
           <img src={logo} alt="Logo" height="35" />
           <h5 className="mb-0 fw-bold text-dark d-none d-md-block">AI Beauty</h5>
-        </div>
+        </div>*/}
 
         {/* Center Search */}
         <div className="flex-grow-1 mx-4 d-none d-md-block">
@@ -119,7 +119,7 @@ function Header() {
                   zIndex: 1000,
                 }}
               >
-                <Link className="dropdown-item" to="/profile">👤 Profile</Link>
+                <Link className="dropdown-item" to="/dashboard/profile">👤 Profile</Link>
                 <Link className="dropdown-item" to="/settings">⚙️ Settings</Link>
                 <hr className="dropdown-divider" />
                 <div className="dropdown-item">

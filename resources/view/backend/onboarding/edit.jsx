@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const EditOnboardingQuestion = () => {
-  const { id } = useParams(); // get ID from route
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -58,7 +58,7 @@ const EditOnboardingQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:8000/api/admin/onboarding/questions-update/${id}`, formData);
+      await axios.post(`http://site2demo.in/ai-beauty/api/admin/onboarding/questions-update/${id}`, formData);
       toast.success("Question updated successfully!");
       navigate(-1);
     } catch (error) {
@@ -66,9 +66,6 @@ const EditOnboardingQuestion = () => {
       toast.error("Failed to update question.");
     }
   };
-
-  if (loading) return <p>Loading...</p>;
-
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -143,7 +140,7 @@ const EditOnboardingQuestion = () => {
                   )}
                 </div>
               ))}
-              <button type="button" className="btn btn-sm btn-outline-primary mt-2" onClick={addOption}>
+              <button type="button" className="btn btn-sm btn-outline-primary text-white bg-brand mt-2" onClick={addOption}>
                 + Add Option
               </button>
             </div>

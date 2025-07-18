@@ -54,3 +54,11 @@ background-color: var(--brand-color) !important;
   background-color: #e07b52 !important;
   border: #e07b52 !important;
 }
+
+.form-control:focus {
+    color: inherit !important;
+    background-color: inherit !important;
+    border-color: inherit !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
