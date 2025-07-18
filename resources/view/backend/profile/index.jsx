@@ -70,7 +70,7 @@ const AdminProfile = () => {
         Swal.fire('Success', 'Profile updated successfully', 'success');
         const updatedUser = {
           ...profile,
-          avatar: res.data.avatar || profile.image,
+          avatar: profile.image,
         };
         localStorage.setItem('user', JSON.stringify(updatedUser));
       } else {
