@@ -26,6 +26,11 @@ function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const closeAllDropdowns = () => {
+    setShowNotif(false);
+    setShowProfile(false);
+  };
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4"
@@ -38,13 +43,13 @@ function Header() {
       }}
     >
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        {/* Left Logo or Title */}
-        {/*<div className="d-flex align-items-center gap-2">
+        {/* Logo or Title */}
+        {/* <div className="d-flex align-items-center gap-2">
           <img src={logo} alt="Logo" height="35" />
           <h5 className="mb-0 fw-bold text-dark d-none d-md-block">AI Beauty</h5>
-        </div>*/}
+        </div> */}
 
-        {/* Center Search */}
+        {/* Search */}
         <div className="flex-grow-1 mx-4 d-none d-md-block">
           <div className="input-group">
             <input
@@ -58,9 +63,9 @@ function Header() {
           </div>
         </div>
 
-        {/* Right Actions */}
+        {/* Right Side */}
         <div className="d-flex align-items-center gap-4">
-          {/* Notification Dropdown */}
+          {/* Notification */}
           <div className="position-relative" ref={notifRef}>
             <FaBell
               className="fs-5 text-secondary dropdown-toggle"
@@ -94,7 +99,7 @@ function Header() {
             )}
           </div>
 
-          {/* Profile Dropdown */}
+          {/* Profile */}
           <div className="position-relative" ref={profileRef}>
             <img
               src="https://i.pravatar.cc/40?img=12"
@@ -119,10 +124,14 @@ function Header() {
                   zIndex: 1000,
                 }}
               >
-                <Link className="dropdown-item" to="/dashboard/profile">👤 Profile</Link>
-                <Link className="dropdown-item" to="/settings">⚙️ Settings</Link>
+                <Link className="dropdown-item" to="/dashboard/profile" onClick={closeAllDropdowns}>
+                  👤 Profile
+                </Link>
+                <Link className="dropdown-item" to="/settings" onClick={closeAllDropdowns}>
+                  ⚙️ Settings
+                </Link>
                 <hr className="dropdown-divider" />
-                <div className="dropdown-item">
+                <div className="dropdown-item" onClick={closeAllDropdowns}>
                   <LogoutButton />
                 </div>
               </div>
