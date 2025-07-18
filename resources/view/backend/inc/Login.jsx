@@ -45,7 +45,7 @@ function Login() {
     }
 
     try {
-      const res = await axios.post('http://site2demo.in/ai-beauty/api/admin/auth/login', {
+      const res = await axios.post('https://site2demo.in/ai-beauty/api/admin/auth/login', {
         email: trimmedEmail,
         password: trimmedPassword,
       });
