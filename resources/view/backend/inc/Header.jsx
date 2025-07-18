@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../../../public/assets/images/logo/log.png';
 import '../../../../public/assets/css/custom.css';
 import LogoutButton from './Logout';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBell, FaSearch } from 'react-icons/fa';
 
 function Header() {
@@ -16,18 +16,38 @@ function Header() {
 
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const notifRef = useRef(null);
   const profileRef = useRef(null);
+  const searchRef = useRef(null);
+  const navigate = useNavigate();
+
+  const sidebarItems = [
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'AI Feature', path: '/dashboard/users' },
+    { name: 'Product', path: '/dashboard/orders' },
+    { name: 'Profile', path: '/dashboard/profile' },
+    { name: 'Onboarding', path: '/settings' },
+    { name: 'Setting', path: '/settings' },
+    { name: 'Customer', path: '/settings' },
+    { name: 'Blog', path: '/settings' },
+    { name: 'Page', path: '/settings' },
+    { name: 'Banner', path: '/settings' },
+  ];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
         !notifRef.current?.contains(event.target) &&
-        !profileRef.current?.contains(event.target)
+        !profileRef.current?.contains(event.target) &&
+        !searchRef.current?.contains(event.target)
       ) {
         setShowNotif(false);
         setShowProfile(false);
+        setShowSuggestions(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -41,15 +61,38 @@ function Header() {
         name: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
-        image: user.avatar ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}` : '', // <-- path set here
+        image: user.avatar
+          ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}`
+          : '',
         role: user.role || 'Administrator',
       });
     }
   }, []);
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (value.length > 0) {
+      const filtered = sidebarItems.filter((item) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (path) => {
+    navigate(path);
+    setSearchTerm('');
+    setShowSuggestions(false);
+  };
+
   const closeAllDropdowns = () => {
     setShowNotif(false);
     setShowProfile(false);
+    setShowSuggestions(false);
   };
 
   return (
@@ -72,16 +115,52 @@ function Header() {
         </div> */}
 
         {/* Search */}
-        <div className="flex-grow-1 mx-4 d-none d-md-block">
-          <div className="input-group">
+        <div className="flex-grow-1 mx-4 d-none d-md-block" ref={searchRef}>
+          <div className="input-group position-relative">
             <input
               type="search"
               className="form-control form-control-lg"
               placeholder="Search anything..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onFocus={() => {
+                if (searchTerm.length > 0) setShowSuggestions(true);
+              }}
             />
-            <span className="input-group-text bg-white">
-              <FaSearch />
-            </span>
+            {showSuggestions && suggestions.length > 0 && (
+              <ul
+                className="list-group position-absolute w-100 bg-white shadow rounded mt-1"
+                style={{
+                  zIndex: 1050,
+                  top: '100%',
+                  maxHeight: '220px',
+                  overflowY: 'auto',
+                  border: '1px solid #dee2e6',
+                }}
+              >
+                {suggestions.map((item, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item list-group-item-action px-3 py-2"
+                    style={{
+                      cursor: 'pointer',
+                      borderBottom:
+                        index !== suggestions.length - 1 ? '1px solid #eee' : 'none',
+                      backgroundColor: '#fff',
+                    }}
+                    onClick={() => handleSuggestionClick(item.path)}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = '#f8f9fa')
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = '#fff')
+                    }
+                  >
+                    🔎 {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
@@ -95,6 +174,7 @@ function Header() {
               onClick={() => {
                 setShowNotif(!showNotif);
                 setShowProfile(false);
+                setShowSuggestions(false);
               }}
             />
             <span
@@ -136,6 +216,7 @@ function Header() {
               onClick={() => {
                 setShowProfile(!showProfile);
                 setShowNotif(false);
+                setShowSuggestions(false);
               }}
             />
             {showProfile && (

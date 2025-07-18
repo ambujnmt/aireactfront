@@ -62,4 +62,7 @@ background-color: var(--brand-color) !important;
     outline: none !important;
     box-shadow: none !important;
 }
-
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating){
+  border-top-right-radius: 1!important;
+  border-bottom-right-radius: 1!important;
+}

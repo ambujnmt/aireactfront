@@ -41,12 +41,15 @@ const chartOptions = {
   },
 };
 
+const user = JSON.parse(localStorage.getItem('user'));
+const userName = user?.name || 'User';
+
 const Dashboard = () => {
   return (
     <div className="container-fluid py-4">
       {/* Page Title */}
       <div className="mb-4">
-        <h2 className="fw-bold">Hi Reetesh 👋</h2>
+        <h2 className="fw-bold">Hi {userName} 👋</h2>
         <p className="text-muted mb-0">Here's your analytics dashboard overview</p>
       </div>
 
