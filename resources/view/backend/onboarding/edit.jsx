@@ -58,7 +58,7 @@ const EditOnboardingQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://site2demo.in/ai-beauty/api/admin/onboarding/questions-update/${id}`, formData);
+      await axios.post(`https://site2demo.in/ai-beauty/api/admin/onboarding/questions-update/${id}`, formData);
       toast.success("Question updated successfully!");
       navigate(-1);
     } catch (error) {
