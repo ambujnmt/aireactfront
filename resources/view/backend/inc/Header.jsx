@@ -124,7 +124,7 @@ function Header() {
           {/* Profile */}
           <div className="position-relative" ref={profileRef}>
             <img
-              src={profile.image || 'https://site2demo.in/ai-beauty/static_assets/images/users/dummy-user.jpg'}
+              src={profile.image || 'https://i.pravatar.cc/40?img=12'}
               alt="User Avatar"
               className="rounded-circle border shadow"
               width="40"
