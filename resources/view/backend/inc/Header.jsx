@@ -62,7 +62,7 @@ function Header() {
         email: user.email || '',
         phone: user.phone || '',
         image: user.avatar
-          ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}`
+          ? `${user.avatar}`
           : '',
         role: user.role || 'Administrator',
       });
