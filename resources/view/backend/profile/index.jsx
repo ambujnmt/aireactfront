@@ -9,9 +9,13 @@ const AdminProfile = () => {
     phone: '',
     image: '',
     role: '',
+    avatar: '', // hold only the filename
   });
   const [imageFile, setImageFile] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state for button
+  const [loading, setLoading] = useState(false);
+
+  const getImageUrl = (filename) =>
+    filename ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${filename}` : '';
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -20,7 +24,8 @@ const AdminProfile = () => {
         name: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
-        image: user.avatar ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${user.avatar}` : '', // <-- path set here
+        image: getImageUrl(user.avatar),
+        avatar: user.avatar || '',
         role: user.role || 'Administrator',
       });
     }
@@ -37,16 +42,16 @@ const AdminProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      setProfile({
-        ...profile,
-        image: URL.createObjectURL(file), // for preview
-      });
+      setProfile((prev) => ({
+        ...prev,
+        image: URL.createObjectURL(file), // preview only
+      }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('name', profile.name);
@@ -68,19 +73,28 @@ const AdminProfile = () => {
 
       if (res.data?.status) {
         Swal.fire('Success', 'Profile updated successfully', 'success');
+
+        const avatarFileName = res.data.avatar || profile.avatar;
+
         const updatedUser = {
           ...profile,
-          avatar: res.data.avatar || profile.image,
+          avatar: avatarFileName,
         };
         localStorage.setItem('user', JSON.stringify(updatedUser));
+
+        setProfile((prev) => ({
+          ...prev,
+          image: getImageUrl(avatarFileName),
+          avatar: avatarFileName,
+        }));
       } else {
-        Swal.fire('Error', 'Failed to update profile', 'error');
+        Swal.fire('Error', res.data.message || 'Failed to update profile', 'error');
       }
     } catch (error) {
       Swal.fire('Error', 'Something went wrong!', 'error');
       console.error(error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
