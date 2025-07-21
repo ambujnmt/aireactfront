@@ -15,7 +15,7 @@ const AdminProfile = () => {
   const [loading, setLoading] = useState(false);
 
   const getImageUrl = (filename) =>
-    filename ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${filename}` : '';
+    filename ? `${filename}` : '';
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
