@@ -90,7 +90,7 @@ const Subscription = () => {
                           <img src={product.image} alt={product.name} width="60" className="rounded" />
                         </td>
                         <td>{product.name}</td>
-                        <td>₹{product.price}</td>
+                        <td>${product.price}</td>
                         <td>{product.planType}</td>
                         <td>{product.featureCount}</td>
                         <td>

@@ -108,7 +108,7 @@ const Dashboard = () => {
                         <img src={product.image} alt={product.name} width="60" className="rounded" />
                       </td>
                       <td>{product.name}</td>
-                      <td>₹{product.price}</td>
+                      <td>${product.price}</td>
                       <td>{product.qty}</td>
                       <td>
                         <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(product.id)}>
