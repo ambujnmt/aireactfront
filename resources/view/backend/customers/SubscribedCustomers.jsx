@@ -26,8 +26,8 @@ const Customer = () => {
 	    const dummyData = [
 	      {
 	        id: 1,
-	        user_name: 'Alice Johnson',
-	        email: 'alice@example.com',
+	        user_name: 'Amit',
+	        email: 'amit@gmail.com',
 	        plan: 'Basic',
 	        start_date: '2025-06-01',
 	        expiry_date: '2025-02-01',
@@ -36,8 +36,8 @@ const Customer = () => {
 	      },
 	      {
 	        id: 2,
-	        user_name: 'Bob Smith',
-	        email: 'bob@example.com',
+	        user_name: 'Akku',
+	        email: 'akku@gmail.com',
 	        plan: 'Pro',
 	        start_date: '2025-05-15',
 	        expiry_date: '2025-02-01',
@@ -46,8 +46,8 @@ const Customer = () => {
 	      },
 	      {
 	        id: 3,
-	        user_name: 'Charlie Brown',
-	        email: 'charlie@example.com',
+	        user_name: 'Pankaj',
+	        email: 'pankaj@gmail.com',
 	        plan: 'Premium',
 	        start_date: '2025-07-01',
 	        expiry_date: '2025-02-01',
@@ -56,8 +56,8 @@ const Customer = () => {
 	      },
 	      {
 	        id: 4,
-	        user_name: 'Diana Prince',
-	        email: 'diana@example.com',
+	        user_name: 'Akash',
+	        email: 'akash@gmail.com',
 	        plan: 'Enterprise',
 	        start_date: '2025-04-20',
 	        expiry_date: '2025-02-01',
@@ -66,8 +66,8 @@ const Customer = () => {
 	      },
 	      {
 	        id: 5,
-	        user_name: 'Ethan Hunt',
-	        email: 'ethan@example.com',
+	        user_name: 'Ritesh',
+	        email: 'ritesh@gmail.com',
 	        plan: 'Basic',
 	        start_date: '2025-03-12',
 	        expiry_date: '2025-02-01',
