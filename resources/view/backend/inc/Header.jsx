@@ -234,7 +234,7 @@ function Header() {
                 <Link className="dropdown-item" to="/dashboard/profile" onClick={closeAllDropdowns}>
                   <FaUser className="me-2" /> Profile
                 </Link>
-                <Link className="dropdown-item" to="/settings" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/dashboard/configration" onClick={closeAllDropdowns}>
                   <FaCog className="me-2" /> Settings
                 </Link>
                 <hr className="dropdown-divider" />
