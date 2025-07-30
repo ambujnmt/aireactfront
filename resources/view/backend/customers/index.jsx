@@ -23,7 +23,7 @@ const Customer = () => {
   const fetchCustomers = async () => {
     setLoading(true); // Start loader
     try {
-      const response = await axios.get(`${BASE_URL}/user-list`);
+      const response = await axios.get('http://site2demo.in/ai-beauty/api/admin/user-list');
       const customerData = response?.data?.data || [];
       setCustomers(customerData);
     } catch (error) {
@@ -119,7 +119,10 @@ const Customer = () => {
                                   customer.status === 'banned' ? 'bg-danger-subtle text-danger' :
                                     customer.status === 'rejected' ? 'bg-warning-subtle text-warning' :
                                       'bg-light text-dark'}`}>
-                              {customer.status ? customer.status.charAt(0).toUpperCase() + customer.status.slice(1) : '-'}
+                              {(() => {
+                                const status = typeof customer.status === 'string' ? customer.status : String(customer.status || '');
+                                return status ? status.charAt(0).toUpperCase() + status.slice(1) : '-';
+                              })()}
                             </span>
                           </td>
                           <td>

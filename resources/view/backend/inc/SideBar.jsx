@@ -71,7 +71,7 @@ const SideBar = () => {
           </li>
           <li className="nav-item mt-2">
             <Link to="/dashboard/ai-feature" className={linkStyle('/dashboard/ai-feature')}>
-              <FaStar /> AI Feature
+              <FaStar /> AI Subscription
             </Link>
           </li>
           <li className="nav-item mt-2">
@@ -80,13 +80,23 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="nav-item mt-2">
+            <Link to="/dashboard/custom-target-makeup-upload" className={linkStyle('/category')}>
+              <FaListAlt />Makeup Upload
+            </Link>
+          </li>
+          <li className="nav-item mt-2">
             <Link to="/dashboard/onboarding" className={linkStyle(['/dashboard/onboarding', '/dashboard/onboarding/create'])}>
               <FaBox /> Onboarding
             </Link>
           </li>
+          <li className="nav-item mt-2">
+            <Link to="/dashboard/customers" className={linkStyle('/dashboard/customers')}>
+              <FaUser /> Customers
+            </Link>
+          </li>
 
           {/* Section: Content */}
-          <li className="text-uppercase small text-muted mt-4 mb-2 px-2">Content</li>
+          {/*<li className="text-uppercase small text-muted mt-4 mb-2 px-2">Content</li>
           <li className="nav-item">
             <button
               className="nav-link btn text-start w-100 d-flex align-items-center gap-2 text-dark px-3 py-2 fw-medium"
@@ -107,17 +117,12 @@ const SideBar = () => {
                 </li>
               </ul>
             )}
-          </li>
+          </li>*/}
 
           {/* Section: Other Static Links */}
           <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/highlights')}>
-              <FaStar /> Highlights
-            </Link>
-          </li>
-          <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/category')}>
-              <FaListAlt /> Category
+            <Link to="/dashboard/subscribed-customers" className={linkStyle('/highlights')}>
+              <FaStar /> Subscribed 
             </Link>
           </li>
           <li className="nav-item mt-2">
@@ -128,11 +133,6 @@ const SideBar = () => {
           <li className="nav-item mt-2">
             <Link to="/dashboard/customers" className={linkStyle('/pages')}>
               <FaFileAlt /> Pages
-            </Link>
-          </li>
-          <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/dashboard/customers')}>
-              <FaUser /> Customers
             </Link>
           </li>
           <li className="nav-item mt-2">

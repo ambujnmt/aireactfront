@@ -36,6 +36,7 @@ const Onboarding = () => {
 
   return (
     <div className="container py-4">
+    <div className="card shadow-lg border-0 rounded-2 p-4">
        <div className="d-flex justify-content-between align-items-center mb-3">
 		  <div>
 		    <h2 className="fw-bold mb-1">Onboarding Questions</h2>
@@ -117,6 +118,7 @@ const Onboarding = () => {
             </ul>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

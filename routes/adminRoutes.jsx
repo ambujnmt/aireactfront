@@ -6,7 +6,9 @@ import Login from '../resources/view/backend/inc/Login';
 import Logout from '../resources/view/backend/inc/Logout';
 import Ai from '../resources/view/backend/ai_feature/index';
 import Customer from '../resources/view/backend/customers/index';
+import SubscribedCustomer from '../resources/view/backend/customers/SubscribedCustomers';
 import Products from '../resources/view/backend/products/index';
+import MakeupUpload from '../resources/view/backend/makeup_upload/index';
 import Onboarding from '../resources/view/backend/onboarding/index';
 import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
 import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
@@ -37,7 +39,9 @@ const UserRoutes = () => {
         <Route path="profile" element={<AdminProfile />} />
         <Route path="ai-feature" element={<Ai />} />
         <Route path="products" element={<Products />} />
+        <Route path="custom-target-makeup-upload" element={<MakeupUpload />} />
         <Route path="customers" element={<Customer />} />
+        <Route path="subscribed-customers" element={<SubscribedCustomer />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route path="onboarding/create" element={<CreateOnboardingQuestion />} />
         <Route path="onboarding/edit/:id" element={<EditOnboardingQuestion />} />

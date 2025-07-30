@@ -68,6 +68,7 @@ const EditOnboardingQuestion = () => {
   };
   return (
     <div className="container py-4">
+    <div className="card shadow-lg border-0 rounded-2 p-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
           <h2 className="fw-bold mb-1">Edit Onboarding Question</h2>
@@ -148,6 +149,7 @@ const EditOnboardingQuestion = () => {
             <button type="submit" className="btn btn-success mt-3">Update Question</button>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

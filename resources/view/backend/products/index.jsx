@@ -70,12 +70,13 @@ const Dashboard = () => {
 
   return (
     <div className="container py-4">
+    <div className="card shadow-lg border-0 rounded-2 p-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
           <h2 className="fw-bold mb-1">Product List</h2>
           <p className="text-muted">Overview of all Products</p>
         </div>
-        <Link to="/dashboard/onboarding/create" className="btn bg-brand text-white">
+        <Link to="/dashboard" className="btn bg-brand text-white">
         + Create One
         </Link>
       </div>
@@ -149,6 +150,7 @@ const Dashboard = () => {
             </ul>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
