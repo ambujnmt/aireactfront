@@ -25,7 +25,7 @@ const Dashboard = () => {
     {
       id: 4,
       title: 'Zendaya Red Carpet Look – Met Gala',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Smokey Eye Glam Look.png',
+      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Zendaya Red Carpet Look – Met Gala.png',
       description: 'Vibrant eye shadow, defined cheekbones, and glossy lips — for a high-fashion transformation.',
     },
     {

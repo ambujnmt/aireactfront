@@ -38,14 +38,14 @@ const Onboarding = () => {
     <div className="container py-4">
     <div className="card shadow-lg border-0 rounded-2 p-4">
        <div className="d-flex justify-content-between align-items-center mb-3">
-		  <div>
-		    <h2 className="fw-bold mb-1">Onboarding Questions</h2>
-		    <p className="text-muted">List of onboarding form questions</p>
-		  </div>
-		  <Link to="/dashboard/onboarding/create" className="btn bg-brand text-white">
-		  + Create One
-		  </Link>
-		</div>
+  		  <div>
+  		    <h2 className="fw-bold mb-1">Onboarding Questions</h2>
+  		    <p className="text-muted">List of onboarding form questions</p>
+  		  </div>
+  		  <Link to="/dashboard/onboarding/create" className="btn bg-brand text-white">
+  		  + Create One
+  		  </Link>
+  		</div>
       <div className="card shadow-sm">
         <div className="card-header bg-brand text-white">
           <h5 className="mb-0">Questions List</h5>
