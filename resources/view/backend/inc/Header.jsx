@@ -3,7 +3,7 @@ import logo from '../../../../public/assets/images/logo/log.png';
 import '../../../../public/assets/css/custom.css';
 import LogoutButton from './Logout';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBell, FaSearch } from 'react-icons/fa';
+import { FaUser, FaTachometerAlt, FaCog, FaSignOutAlt, FaBell, FaSearch } from 'react-icons/fa';
 
 function Header() {
   const [profile, setProfile] = useState({
@@ -107,13 +107,6 @@ function Header() {
       }}
     >
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        {/* Logo or Title */}
-        {/* Uncomment if needed */}
-        {/* <div className="d-flex align-items-center gap-2">
-          <img src={logo} alt="Logo" height="35" />
-          <h5 className="mb-0 fw-bold text-dark d-none d-md-block">AI Beauty</h5>
-        </div> */}
-
         {/* Search */}
         <div className="flex-grow-1 mx-4 d-none d-md-block" ref={searchRef}>
           <div className="input-group position-relative">
@@ -204,21 +197,26 @@ function Header() {
           {/* Profile */}
           <div className="position-relative" ref={profileRef}>
             <img
-              src={profile.image || 'https://i.pravatar.cc/40?img=12'}
-              alt="User Avatar"
-              className="rounded-circle border shadow"
-              width="40"
-              height="40"
-              style={{
-                cursor: 'pointer',
-                objectFit: 'cover',
-              }}
-              onClick={() => {
-                setShowProfile(!showProfile);
-                setShowNotif(false);
-                setShowSuggestions(false);
-              }}
-            />
+                src={profile.image || 'https://i.pravatar.cc/40?img=12'}
+                alt="User Avatar"
+                className="rounded-circle border shadow"
+                width="40"
+                height="40"
+                style={{
+                  cursor: 'pointer',
+                  objectFit: 'cover',
+                }}
+                onClick={() => {
+                  setShowProfile(!showProfile);
+                  setShowNotif(false);
+                  setShowSuggestions(false);
+                }}
+                onError={(e) => {
+                  e.target.onerror = null; // prevent infinite loop
+                  e.target.src = 'https://i.pravatar.cc/40?img=12';
+                }}
+              />
+
             {showProfile && (
               <div
                 className="dropdown-menu show shadow rounded mt-2 p-2"
@@ -230,16 +228,19 @@ function Header() {
                   zIndex: 1000,
                 }}
               >
+                <Link className="dropdown-item" to="/dashboard" onClick={closeAllDropdowns}>
+                  <FaTachometerAlt className="me-2" /> Dashboard
+                </Link>
                 <Link className="dropdown-item" to="/dashboard/profile" onClick={closeAllDropdowns}>
-                  👤 Profile
+                  <FaUser className="me-2" /> Profile
                 </Link>
                 <Link className="dropdown-item" to="/settings" onClick={closeAllDropdowns}>
-                  ⚙️ Settings
+                  <FaCog className="me-2" /> Settings
                 </Link>
                 <hr className="dropdown-divider" />
-                <div className="dropdown-item" onClick={closeAllDropdowns}>
-                  <LogoutButton />
-                </div>
+                <Link className="dropdown-item"  onClick={closeAllDropdowns}>
+                  <FaSignOutAlt className="me-2" /> <LogoutButton />
+                </Link>
               </div>
             )}
           </div>

@@ -109,7 +109,12 @@ const AdminProfile = () => {
               className="rounded-circle shadow"
               width="120"
               height="120"
+              onError={(e) => {
+                e.target.onerror = null; // prevent infinite loop
+                e.target.src = 'https://i.pravatar.cc/120?img=12';
+              }}
             />
+
             <h4 className="mt-3 mb-0">{profile.name}</h4>
             <p className="text-muted">{profile.role}</p>
           </div>

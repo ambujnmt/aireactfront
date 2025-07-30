@@ -90,7 +90,7 @@ function Login() {
       <div style={styles.right}>
         <div style={styles.card}>
           <img src={illustration} alt="Logo" style={styles.logo} />
-          <h2 style={styles.heading}>Admin Login</h2>
+          <h2 style={styles.heading}>Super Admin Login</h2>
           <p style={styles.subheading}>Please enter your credentials to proceed.</p>
           <form onSubmit={handleLogin} style={styles.form}>
             <input
