@@ -23,7 +23,7 @@ const Customer = () => {
   const fetchCustomers = async () => {
     setLoading(true); // Start loader
     try {
-      const response = await axios.get('http://site2demo.in/ai-beauty/api/admin/user-list');
+      const response = await axios.get('https://site2demo.in/ai-beauty/api/admin/user-list');
       const customerData = response?.data?.data || [];
       setCustomers(customerData);
     } catch (error) {
