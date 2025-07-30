@@ -107,7 +107,7 @@ const AdminSettings = () => {
               <input
                 type="text"
                 className="form-control"
-                name="phone"
+                name="company_phone"
                 value={settings.company_phone}
                 onChange={handleChange}
               />
