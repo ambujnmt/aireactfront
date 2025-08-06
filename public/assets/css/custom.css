@@ -66,3 +66,7 @@ background-color: var(--brand-color) !important;
   border-top-right-radius: 1!important;
   border-bottom-right-radius: 1!important;
 }
+
+.activeImage img{
+  padding: 15px;
+}

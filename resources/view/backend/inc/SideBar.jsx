@@ -80,7 +80,7 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/custom-target-makeup-upload" className={linkStyle('/category')}>
+            <Link to="/dashboard/custom-target-makeup-upload" className={linkStyle('/dashboard/custom-target-makeup-upload')}>
               <FaListAlt />Makeup Upload
             </Link>
           </li>
@@ -94,30 +94,6 @@ const SideBar = () => {
               <FaUser /> Customers
             </Link>
           </li>
-
-          {/* Section: Content */}
-          {/*<li className="text-uppercase small text-muted mt-4 mb-2 px-2">Content</li>
-          <li className="nav-item">
-            <button
-              className="nav-link btn text-start w-100 d-flex align-items-center gap-2 text-dark px-3 py-2 fw-medium"
-              onClick={() => setIsBlogOpen(!isBlogOpen)}
-              style={{ background: 'transparent', border: 'none' }}
-            >
-              <FaBlog /> Blog
-              <span className="ms-auto">{isBlogOpen ? <FaChevronUp /> : <FaChevronDown />}</span>
-            </button>
-
-            {isBlogOpen && (
-              <ul className="nav flex-column ms-4">
-                <li className="nav-item">
-                  <Link to="/dashboard/customers" className={linkStyle('/blog')}>List</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/dashboard/customers" className={linkStyle('/blog/create')}>Create</Link>
-                </li>
-              </ul>
-            )}
-          </li>*/}
 
           {/* Section: Other Static Links */}
           <li className="nav-item mt-2">
@@ -141,7 +117,7 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/configration" className={linkStyle('/configration')}>
+            <Link to="/dashboard/configration" className={linkStyle('/dashboard/configration')}>
               <FaCogs /> Configuration
             </Link>
           </li>

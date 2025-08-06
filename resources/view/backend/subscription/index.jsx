@@ -1,52 +1,52 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { confirmDelete } from '../../../../src/utils/confirmDelete';
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import imageWrong from '../../../../public/assets/images/wrong.png';
 
 const Subscription = () => {
-  const dummyProducts = [
-    {
-      id: 1,
-      name: 'Free Plan',
-      price: 0,
-      planType: 'Monthly',
-      featureCount: 4,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Green_tick.png',
-    },
-    {
-      id: 2,
-      name: 'Gold Plan',
-      price: 1999,
-      planType: 'Yearly',
-      featureCount: 12,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Green_tick.png',
-    },
-    {
-      id: 3,
-      name: 'Diamond',
-      price: 2299,
-      planType: 'Monthly',
-      featureCount: 15,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Green_tick.png',
-    },
-  ];
-
-  const [products, setProducts] = useState(dummyProducts);
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 5;
+  const navigate = useNavigate(); 
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    fetchSubscriptions();
+  }, []);
+
+  const fetchSubscriptions = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/subscription-plan/list`);
+      if (response.data && response.data.status) {
+        const mappedData = response.data.data.map(item => ({
+          id: item.id,
+          name: item.subscription_name,
+          price: item.price,
+          planType: item.plan_type,
+          status: item.status,
+          featureCount: item.features.length,
+          image: item.image || 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Green_tick.png',
+        }));
+        setProducts(mappedData);
+      }
+    } catch (error) {
+      console.error("Failed to fetch subscriptions", error);
+    }
+  };
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = products.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(products.length / productsPerPage);
 
-  const handleView = (id) => alert(`View product with ID: ${id}`);
-  const handleEdit = (id) => alert(`Edit product with ID: ${id}`);
+  const handleView = (id) => navigate(`/dashboard/subscription/view/${id}`);
+  const handleEdit = (id) => navigate(`/dashboard/subscription/edit/${id}`);
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this plan?')) {
-      setProducts(products.filter(product => product.id !== id));
-    }
+    confirmDelete(`${BASE_URL}/delete/subscription/${id}`, fetchSubscriptions);
   };
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -57,7 +57,7 @@ const Subscription = () => {
             <h2 className="fw-bold mb-1">Subscription Plan List</h2>
             <p className="text-muted">Overview of all Subscription Plans</p>
           </div>
-          <Link to="/dashboard" className="btn bg-brand text-white">
+          <Link to="/dashboard/subscription/create" className="btn bg-brand text-white">
             + Create One
           </Link>
         </div>
@@ -86,8 +86,13 @@ const Subscription = () => {
                     currentProducts.map((product, index) => (
                       <tr key={product.id}>
                         <td>{indexOfFirst + index + 1}</td>
-                        <td>
-                          <img src={product.image} alt={product.name} width="60" className="rounded" />
+                        <td className="activeImage">
+                          <img
+                            src={product.status == 0 ? imageWrong : product.image}
+                            alt={product.name}
+                            width="60"
+                            className="rounded"
+                          />
                         </td>
                         <td>{product.name}</td>
                         <td>${product.price}</td>
@@ -134,6 +139,7 @@ const Subscription = () => {
                 ))}
               </ul>
             </div>
+
           </div>
         </div>
       </div>

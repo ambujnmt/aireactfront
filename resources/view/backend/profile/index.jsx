@@ -13,6 +13,7 @@ const AdminProfile = () => {
   });
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const getImageUrl = (filename) =>
     filename ? `https://site2demo.in/ai-beauty/public/admin_assets/images/users/${filename}` : '';
@@ -62,7 +63,7 @@ const AdminProfile = () => {
       }
 
       const res = await axios.post(
-        'https://site2demo.in/ai-beauty/api/admin/update-profile',
+        `${BASE_URL}/update-profile`,
         formData,
         {
           headers: {

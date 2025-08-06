@@ -33,8 +33,8 @@ const Customer = () => {
     }
   };
 
-  const handleView = (id) => navigate(`/admin/dashboard/customer/view/${id}`);
-  const handleEdit = (id) => navigate(`/admin/dashboard/customer/edit/${id}`);
+  const handleView = (id) => navigate(`/dashboard/customer/view/${id}`);
+  const handleEdit = (id) => navigate(`/dashboard/customer/edit/${id}`);
   const handleDelete = (id) => confirmDelete(`${BASE_URL}/delete/user/${id}`, fetchCustomers);
 
   const filteredCustomers = customers.filter((customer) =>

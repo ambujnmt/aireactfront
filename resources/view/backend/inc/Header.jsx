@@ -27,15 +27,12 @@ function Header() {
 
   const sidebarItems = [
     { name: 'Dashboard', path: '/dashboard' },
-    { name: 'AI Feature', path: '/dashboard/users' },
-    { name: 'Product', path: '/dashboard/orders' },
+    { name: 'AI Subscription', path: '/dashboard/ai-feature' },
+    { name: 'Makeup Upload', path: '/dashboard/custom-target-makeup-upload' },
     { name: 'Profile', path: '/dashboard/profile' },
-    { name: 'Onboarding', path: '/settings' },
-    { name: 'Setting', path: '/settings' },
-    { name: 'Customer', path: '/settings' },
-    { name: 'Blog', path: '/settings' },
-    { name: 'Page', path: '/settings' },
-    { name: 'Banner', path: '/settings' },
+    { name: 'Onboarding', path: '/dashboard/onboarding' },
+    { name: 'Setting', path: '/dashboard/configration' },
+    { name: 'Customer', path: '/dashboard/customers' },
   ];
 
   useEffect(() => {

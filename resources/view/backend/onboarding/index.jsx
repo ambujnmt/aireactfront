@@ -9,6 +9,8 @@ const Onboarding = () => {
   const [questions, setQuestions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 5;
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const IMAGE_PATH = import.meta.env.VITE_IMAGE_BASE_URL;
 
   useEffect(() => {
     fetchQuestions();
@@ -16,7 +18,7 @@ const Onboarding = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get('https://site2demo.in/ai-beauty/api/admin/onboarding/questions');
+      const response = await axios.get(`${BASE_URL}/onboarding/questions`);
       setQuestions(response.data.data || []);
     } catch (error) {
       console.error('Error fetching questions:', error);
@@ -24,7 +26,7 @@ const Onboarding = () => {
   };
 
   const handleDelete = (id) => {
-	  confirmDelete(`https://site2demo.in/ai-beauty/api/admin/delete/OnboardingQuestion/${id}`, fetchQuestions);
+	  confirmDelete(`${BASE_URL}/delete/OnboardingQuestion/${id}`, fetchQuestions);
 	};
 
   const indexOfLast = currentPage * questionsPerPage;
@@ -71,20 +73,37 @@ const Onboarding = () => {
                       <td>{question.question_text}</td>
                       <td>{question.type}</td>
                       <td>
-                        {question.options && Array.isArray(question.options)
-                          ? question.options.join(', ')
-                          : 'N/A'}
-                      </td>
+                          {Array.isArray(question.options) && question.options.length > 0 ? (
+                            <ul className="mb-0 ps-3 list-none" style={{ listStyleType: 'none' }}>
+                              {question.options.map((opt, i) => (
+                                <li key={i} className="flex items-center gap-2">
+                                  {opt.icon && (
+                                    <img
+                                      src={`${IMAGE_PATH}/icons/${opt.icon}`}
+                                      alt={opt.name}
+                                      style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+                                    />
+                                  )}
+                                  <span>{opt.name}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            'N/A'
+                          )}
+                        </td>
+
+
                       <td>
-                        <button className="btn btn-sm btn-outline-primary me-2" onClick={() => alert(`Viewing question ID: ${question.id}`)}>
+                        {/*<button className="btn btn-sm btn-outline-primary me-2" onClick={() => alert(`Viewing question ID: ${question.id}`)}>
                           <FaEye />
-                        </button>
+                        </button>*/}
                         <Link
-						  to={`/dashboard/onboarding/edit/${question.id}`}
-						  className="btn btn-sm btn-outline-success me-2"
-						>
-						  <FaEdit />
-						</Link>
+            						  to={`/dashboard/onboarding/edit/${question.id}`}
+            						  className="btn btn-sm btn-outline-success me-2"
+            						>
+            						  <FaEdit />
+            						</Link>
                         <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(question.id)}>
                           <FaTrash />
                         </button>
