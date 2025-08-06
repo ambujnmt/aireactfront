@@ -41,9 +41,9 @@ function Logout() {
   };
 
   return (
-    <button onClick={handleLogout} style={styles.button}>
+    <span onClick={handleLogout}>
       Logout
-    </button>
+    </span>
   );
 }
 

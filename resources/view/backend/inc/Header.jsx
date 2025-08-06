@@ -194,26 +194,21 @@ function Header() {
           {/* Profile */}
           <div className="position-relative" ref={profileRef}>
             <img
-                src={profile.image || 'https://i.pravatar.cc/40?img=12'}
-                alt="User Avatar"
-                className="rounded-circle border shadow"
-                width="40"
-                height="40"
-                style={{
-                  cursor: 'pointer',
-                  objectFit: 'cover',
-                }}
-                onClick={() => {
-                  setShowProfile(!showProfile);
-                  setShowNotif(false);
-                  setShowSuggestions(false);
-                }}
-                onError={(e) => {
-                  e.target.onerror = null; // prevent infinite loop
-                  e.target.src = 'https://i.pravatar.cc/40?img=12';
-                }}
-              />
-
+              src={profile.image || 'https://i.pravatar.cc/40?img=12'}
+              alt="User Avatar"
+              className="rounded-circle border shadow"
+              width="40"
+              height="40"
+              style={{
+                cursor: 'pointer',
+                objectFit: 'cover',
+              }}
+              onClick={() => {
+                setShowProfile(!showProfile);
+                setShowNotif(false);
+                setShowSuggestions(false);
+              }}
+            />
             {showProfile && (
               <div
                 className="dropdown-menu show shadow rounded mt-2 p-2"
@@ -225,13 +220,13 @@ function Header() {
                   zIndex: 1000,
                 }}
               >
-                <Link className="dropdown-item" to="/dashboard" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/admin/dashboard" onClick={closeAllDropdowns}>
                   <FaTachometerAlt className="me-2" /> Dashboard
                 </Link>
-                <Link className="dropdown-item" to="/dashboard/profile" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/admin/dashboard/profile" onClick={closeAllDropdowns}>
                   <FaUser className="me-2" /> Profile
                 </Link>
-                <Link className="dropdown-item" to="/dashboard/configration" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/settings" onClick={closeAllDropdowns}>
                   <FaCog className="me-2" /> Settings
                 </Link>
                 <hr className="dropdown-divider" />
