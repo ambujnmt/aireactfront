@@ -74,11 +74,11 @@ const SideBar = () => {
               <FaStar /> AI Subscription
             </Link>
           </li>
-          <li className="nav-item mt-2">
+         {/* <li className="nav-item mt-2">
             <Link to="/dashboard/products" className={linkStyle('/dashboard/products')}>
               <FaBox /> Product
             </Link>
-          </li>
+          </li>*/}
           <li className="nav-item mt-2">
             <Link to="/dashboard/custom-target-makeup-upload" className={linkStyle('/dashboard/custom-target-makeup-upload')}>
               <FaListAlt />Makeup Upload

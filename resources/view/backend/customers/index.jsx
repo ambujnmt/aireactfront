@@ -1,3 +1,4 @@
+// Imports remain unchanged
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -21,15 +22,15 @@ const Customer = () => {
   }, []);
 
   const fetchCustomers = async () => {
-    setLoading(true); // Start loader
+    setLoading(true);
     try {
-      const response = await axios.get('https://site2demo.in/ai-beauty/api/admin/user-list');
+      const response = await axios.get(`${BASE_URL}/user-list`);
       const customerData = response?.data?.data || [];
       setCustomers(customerData);
     } catch (error) {
       console.error('Error fetching customers:', error);
     } finally {
-      setLoading(false); // Stop loader
+      setLoading(false);
     }
   };
 
@@ -38,9 +39,7 @@ const Customer = () => {
   const handleDelete = (id) => confirmDelete(`${BASE_URL}/delete/user/${id}`, fetchCustomers);
 
   const filteredCustomers = customers.filter((customer) =>
-    customer.user_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.phone_number?.toLowerCase().includes(searchTerm.toLowerCase())
+    customer.device_id?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const indexOfLast = currentPage * customersPerPage;
@@ -89,10 +88,8 @@ const Customer = () => {
                   <thead className="table-light">
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Passport</th>
+                      <th>Device ID</th>
+                      <th>Onboarding Options</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
@@ -102,27 +99,23 @@ const Customer = () => {
                       currentCustomers.map((customer, index) => (
                         <tr key={customer.id}>
                           <td>{indexOfFirst + index + 1}</td>
-                          <td>{customer.user_name}</td>
-                          <td>{customer.email}</td>
-                          <td>{customer.phone_number || 'N/A'}</td>
+                          <td>{customer.device_id || 'N/A'}</td>
                           <td>
-                            {customer.is_verified ? (
-                              <span className="badge text-success bg-success-subtle fw-semibold">Verified</span>
+                            {customer.onboarding_options ? (
+                              <ul className="mb-0 ps-0" style={{ listStyle: 'none' }}>
+                                {Object.entries(customer.onboarding_options).map(([key, value], i) => (
+                                  <li key={i}>
+                                    <strong>{key}:</strong> {value}
+                                  </li>
+                                ))}
+                              </ul>
                             ) : (
-                              <span className="badge text-danger bg-danger-subtle fw-semibold">Not Verified</span>
+                              '-'
                             )}
                           </td>
                           <td>
-                            <span className={`badge 
-                              ${customer.status === 'active' ? 'bg-success-subtle text-success' :
-                                customer.status === 'inActive' ? 'bg-secondary-subtle text-secondary' :
-                                  customer.status === 'banned' ? 'bg-danger-subtle text-danger' :
-                                    customer.status === 'rejected' ? 'bg-warning-subtle text-warning' :
-                                      'bg-light text-dark'}`}>
-                              {(() => {
-                                const status = typeof customer.status === 'string' ? customer.status : String(customer.status || '');
-                                return status ? status.charAt(0).toUpperCase() + status.slice(1) : '-';
-                              })()}
+                            <span className="badge bg-secondary">
+                              {String(customer.status).charAt(0).toUpperCase() + String(customer.status).slice(1)}
                             </span>
                           </td>
                           <td>

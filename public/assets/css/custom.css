@@ -56,8 +56,8 @@ background-color: var(--brand-color) !important;
 }
 
 .form-control:focus {
-    color: inherit !important;
-    background-color: inherit !important;
+    color: #000 !important;
+    background-color: #fff !important;
     border-color: inherit !important;
     outline: none !important;
     box-shadow: none !important;
