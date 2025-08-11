@@ -90,7 +90,7 @@ const Customer = () => {
                       <th>#</th>
                       <th>Device ID</th>
                       <th>Onboarding Options</th>
-                      <th>Status</th>
+                      <th>Account</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -103,7 +103,11 @@ const Customer = () => {
                           <td>
                             {customer.onboarding_options ? (
                               <ul className="mb-0 ps-0" style={{ listStyle: 'none' }}>
-                                {Object.entries(customer.onboarding_options).map(([key, value], i) => (
+                                {Object.entries(
+                                  typeof customer.onboarding_options === 'string'
+                                    ? JSON.parse(customer.onboarding_options)
+                                    : customer.onboarding_options
+                                ).map(([key, value], i) => (
                                   <li key={i}>
                                     <strong>{key}:</strong> {value}
                                   </li>
@@ -112,12 +116,16 @@ const Customer = () => {
                             ) : (
                               '-'
                             )}
+
                           </td>
                           <td>
-                            <span className="badge bg-secondary">
-                              {String(customer.status).charAt(0).toUpperCase() + String(customer.status).slice(1)}
-                            </span>
+                            {Number(customer.status) === 1 ? (
+                              <span className="badge bg-success">Active</span>
+                            ) : (
+                              <span className="badge bg-danger">Inactive</span>
+                            )}
                           </td>
+
                           <td>
                             <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(customer.id)}>View</button>
                             <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(customer.id)}>Edit</button>
