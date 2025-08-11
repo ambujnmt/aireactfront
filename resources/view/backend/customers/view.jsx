@@ -42,29 +42,8 @@ const CustomerDetail = () => {
 
         <div className="row mb-3">
           <div className="col-md-6 mb-3">
-            <label className="form-label fw-semibold">Name</label>
-            <div>{customer.user_name || 'N/A'}</div>
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label fw-semibold">Email</label>
-            <div>{customer.email || 'N/A'}</div>
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label fw-semibold">Phone</label>
-            <div>{customer.phone_number || 'N/A'}</div>
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label fw-semibold">Passport</label>
-            <div>
-              {customer.is_verified ? (
-                <span className="badge bg-success-subtle text-success">Verified</span>
-              ) : (
-                <span className="badge bg-danger-subtle text-danger">Not Verified</span>
-              )}
-            </div>
+            <label className="form-label fw-semibold">Device ID</label>
+            <div>{ustomer.device_id || 'N/A'}</div>
           </div>
 
           <div className="col-md-6 mb-3">

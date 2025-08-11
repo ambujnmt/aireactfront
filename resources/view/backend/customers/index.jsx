@@ -119,13 +119,22 @@ const Customer = () => {
 
                           </td>
                           <td>
-                            {Number(customer.status) === 1 ? (
-                              <span className="badge bg-success">Active</span>
-                            ) : (
-                              <span className="badge bg-danger">Inactive</span>
-                            )}
+                            <span
+                              className={`badge ${
+                                customer.status === 'active'
+                                  ? 'bg-success-subtle text-success'
+                                  : customer.status === 'inActive'
+                                  ? 'bg-secondary-subtle text-secondary'
+                                  : customer.status === 'banned'
+                                  ? 'bg-danger-subtle text-danger'
+                                  : customer.status === 'rejected'
+                                  ? 'bg-warning-subtle text-warning'
+                                  : 'bg-secondary'
+                              }`}
+                            >
+                              {String(customer.status).charAt(0).toUpperCase() + String(customer.status).slice(1)}
+                            </span>
                           </td>
-
                           <td>
                             <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(customer.id)}>View</button>
                             <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(customer.id)}>Edit</button>
