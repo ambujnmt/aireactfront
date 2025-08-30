@@ -64,7 +64,7 @@ const Customer = () => {
             <input
               type="text"
               className="form-control w-50 filterData"
-              placeholder="Search by name, email or phone..."
+              placeholder="Search By Device ID..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);

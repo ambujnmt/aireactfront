@@ -1,50 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { getMakeupList } from "../../../../src/utils/fetchAdminApi";
+import { toast } from "react-toastify";
+import { confirmDelete } from "../../../../src/utils/confirmDelete"; 
 
 const Dashboard = () => {
-  const dummyUploads = [
-    {
-      id: 1,
-      title: 'Smokey Eye Glam Look',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Smokey Eye Glam Look.png',
-      description: 'A high-contrast makeup image showing bold smokey eyes, matte foundation, and nude lips — commonly used for evening or party looks.',
-    },
-    {
-      id: 2,
-      title: 'Korean Dewy Natural Look',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Korean Dewy Natural Look.png',
-      description: 'Glassy skin, minimal eye makeup, gradient lips, and natural blush — great for daytime or casual looks.',
-    },
-    {
-      id: 3,
-      title: 'Bridal Makeup – Traditional Indian',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Bridal Makeup – Traditional Indian.png',
-      description: 'Dramatic eyeliner, bold red lipstick, and heavy contouring — uploaded by a user preparing for a wedding event.',
-    },
-    {
-      id: 4,
-      title: 'Zendaya Red Carpet Look – Met Gala',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Zendaya Red Carpet Look – Met Gala.png',
-      description: 'Vibrant eye shadow, defined cheekbones, and glossy lips — for a high-fashion transformation.',
-    },
-    {
-      id: 5,
-      title: 'Pinterest Nude Tones with Brown Liner',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Pinterest Screenshot – Nude Tones with Brown Liner.png',
-      description: 'Soft nude tones, bronze shimmer, and brown eyeliner — reflects current minimalist trends.',
-    },
-    {
-      id: 6,
-      title: 'Arabic Bridal Makeup',
-      image: 'https://site2demo.in/ai-beauty/public/admin_assets/images/makeup/Arabic Bridal Makeup.png',
-      description: 'Cut-crease eye shadow, winged liner, and full lashes — popular among users from the Middle East.',
-    },
-  ];
-
-  const [uploads, setUploads] = useState(dummyUploads);
+  const [uploads, setUploads] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const uploadsPerPage = 8;
+  const navigate = useNavigate();
+
+  // ✅ Fetch data from API
+  const fetchUploads = async () => {
+    try {
+      const res = await getMakeupList();
+      setUploads(res.data.data || []); // assuming response is { data: [...] }
+    } catch (error) {
+      toast.error("Failed to fetch makeup list");
+    }
+  };
+
+  useEffect(() => {
+    fetchUploads();
+  }, []);
 
   const indexOfLast = currentPage * uploadsPerPage;
   const indexOfFirst = indexOfLast - uploadsPerPage;
@@ -52,11 +31,10 @@ const Dashboard = () => {
   const totalPages = Math.ceil(uploads.length / uploadsPerPage);
 
   const handleView = (id) => alert(`View makeup ID: ${id}`);
-  const handleEdit = (id) => alert(`Edit makeup ID: ${id}`);
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this makeup upload?')) {
-      setUploads(uploads.filter((upload) => upload.id !== id));
-    }
+  const handleEdit = (id) => navigate(`/dashboard/custom-target-makeup-upload-edit/${id}`);
+
+  const handleDelete = async (id) => {
+    await confirmDelete(`/delete/makeupUpload/${id}`, fetchUploads);
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -69,7 +47,7 @@ const Dashboard = () => {
             <h2 className="fw-bold mb-1">Custom Target Makeup Uploads</h2>
             <p className="text-muted">Overview of all uploaded makeup references</p>
           </div>
-          <Link to="/dashboard/create" className="btn bg-brand text-white">
+          <Link to="/dashboard/custom-target-makeup-upload-create" className="btn bg-brand text-white">
             + Create One
           </Link>
         </div>
@@ -97,18 +75,32 @@ const Dashboard = () => {
                       <tr key={upload.id}>
                         <td>{indexOfFirst + index + 1}</td>
                         <td>
-                          <img src={upload.image} alt={upload.title} width="60" className="rounded" />
+                          <img
+                            src={upload.image || "/placeholder.png"} // ✅ show full image path
+                            alt={upload.title}
+                            width="60"
+                            className="rounded"
+                          />
                         </td>
                         <td>{upload.title}</td>
                         <td>{upload.description}</td>
                         <td>
-                          <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(upload.id)}>
+                          <button
+                            className="btn btn-sm btn-outline-primary me-2"
+                            onClick={() => handleView(upload.id)}
+                          >
                             <FaEye />
                           </button>
-                          <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(upload.id)}>
+                          <button
+                            className="btn btn-sm btn-outline-success me-2"
+                            onClick={() => handleEdit(upload.id)}
+                          >
                             <FaEdit />
                           </button>
-                          <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(upload.id)}>
+                          <button
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={() => handleDelete(upload.id)}
+                          >
                             <FaTrash />
                           </button>
                         </td>
@@ -125,13 +117,15 @@ const Dashboard = () => {
               </table>
             </div>
 
+            {/* Pagination */}
             <div className="p-3 border-top d-flex justify-content-between align-items-center">
               <span>
-                Showing {indexOfFirst + 1} to {Math.min(indexOfLast, uploads.length)} of {uploads.length} entries
+                Showing {uploads.length > 0 ? indexOfFirst + 1 : 0} to{" "}
+                {Math.min(indexOfLast, uploads.length)} of {uploads.length} entries
               </span>
               <ul className="pagination mb-0">
                 {[...Array(totalPages)].map((_, index) => (
-                  <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                  <li key={index} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
                     <button className="page-link" onClick={() => paginate(index + 1)}>
                       {index + 1}
                     </button>

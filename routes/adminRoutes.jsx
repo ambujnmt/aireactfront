@@ -17,6 +17,8 @@ import CustomerView from '../resources/view/backend/customers/view';
 import SubscribedCustomer from '../resources/view/backend/customers/SubscribedCustomers';
 import Products from '../resources/view/backend/products/index';
 import MakeupUpload from '../resources/view/backend/makeup_upload/index';
+import MakeupUploadCreate from '../resources/view/backend/makeup_upload/create';
+import MakeupUploadEdit from '../resources/view/backend/makeup_upload/edit';
 
 import Onboarding from '../resources/view/backend/onboarding/index';
 import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
@@ -56,6 +58,8 @@ const UserRoutes = () => {
 
         <Route path="products" element={<Products />} />
         <Route path="custom-target-makeup-upload" element={<MakeupUpload />} />
+        <Route path="custom-target-makeup-upload-create" element={<MakeupUploadCreate />} />
+        <Route path="custom-target-makeup-upload-edit/:id" element={<MakeupUploadEdit />} />
 
         {/*customer*/}
         <Route path="customers" element={<Customer />} />
