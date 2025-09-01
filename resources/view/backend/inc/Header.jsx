@@ -220,13 +220,13 @@ function Header() {
                   zIndex: 1000,
                 }}
               >
-                <Link className="dropdown-item" to="/admin/dashboard" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/dashboard" onClick={closeAllDropdowns}>
                   <FaTachometerAlt className="me-2" /> Dashboard
                 </Link>
-                <Link className="dropdown-item" to="/admin/dashboard/profile" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/dashboard/profile" onClick={closeAllDropdowns}>
                   <FaUser className="me-2" /> Profile
                 </Link>
-                <Link className="dropdown-item" to="/settings" onClick={closeAllDropdowns}>
+                <Link className="dropdown-item" to="/dashboard/configration" onClick={closeAllDropdowns}>
                   <FaCog className="me-2" /> Settings
                 </Link>
                 <hr className="dropdown-divider" />
