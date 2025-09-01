@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  FaTachometerAlt, FaUser, FaBox, FaBlog, FaChevronDown, FaChevronUp,
-  FaStar, FaImage, FaListAlt, FaFileAlt, FaCogs, FaFacebookF
+  FaCheckCircle, FaUser, FaBox, FaBlog, FaChevronDown, FaChevronUp,
+  FaStar, FaImage, FaListAlt, FaGlobe , FaCogs, FaFacebookF
 } from 'react-icons/fa';
 import illustration from '../../../../public/assets/images/logo/log.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -66,12 +66,12 @@ const SideBar = () => {
           <li className="text-uppercase small text-muted mt-4 mb-2 px-2">Main</li>
           <li className="nav-item">
             <Link to="/dashboard" className={linkStyle('/dashboard')}>
-              <FaTachometerAlt /> Dashboard
+              <FaGlobe  /> Dashboard
             </Link>
           </li>
           <li className="nav-item mt-2">
             <Link to="/dashboard/ai-feature" className={linkStyle('/dashboard/ai-feature')}>
-              <FaStar /> AI Subscription
+              <FaCheckCircle /> AI Subscription
             </Link>
           </li>
          <li className="nav-item mt-2">
@@ -101,7 +101,7 @@ const SideBar = () => {
               <FaStar /> Subscribed 
             </Link>
           </li>
-          <li className="nav-item mt-2">
+          {/* <li className="nav-item mt-2">
             <Link to="/dashboard/customers" className={linkStyle('/pages')}>
               <FaFileAlt /> Pages
             </Link>
@@ -110,7 +110,7 @@ const SideBar = () => {
             <Link to="/dashboard/customers" className={linkStyle('/social-media')}>
               <FaFacebookF /> Social Media
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item mt-2">
             <Link to="/dashboard/configration" className={linkStyle('/dashboard/configration')}>
               <FaCogs /> Configuration

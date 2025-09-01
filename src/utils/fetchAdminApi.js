@@ -47,4 +47,16 @@ export const updateCustomer = async (id, formData) => {
   return await axios.put(`${baseURL}/api/admin/user-update/${id}`, formData);
 };
 
+export const getCustomerList = async () => {
+  return await axios.get(`${baseURL}/api/admin/user-list`);
+};
+
+export const getSubscriptionList = async () => {
+  return await axios.get(`${baseURL}/api/admin/subscription-plan/list`);
+};
+
+export const getSubscribedCustomers = async () => {
+  return await axios.get(`${baseURL}/api/admin/subscribed-customers`);
+};
+
 

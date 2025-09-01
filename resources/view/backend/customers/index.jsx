@@ -136,9 +136,9 @@ const Customer = () => {
                             </span>
                           </td>
                           <td>
-                            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(customer.id)}>View</button>
-                            <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(customer.id)}>Edit</button>
-                            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(customer.id)}>Delete</button>
+                            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(customer.id)}> <FaEye /></button>
+                            <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(customer.id)}> <FaEdit /></button>
+                            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(customer.id)}> <FaTrash /></button>
                           </td>
                         </tr>
                       ))
