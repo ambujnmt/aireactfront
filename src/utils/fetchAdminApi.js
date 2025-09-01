@@ -27,3 +27,7 @@ export const updateMakeup = async (id, data) => {
     },
   });
 };
+
+export const getMakeupTransferList = async () => {
+  return await axios.get(`${baseURL}/api/admin/makeup-transfer-list`);
+};
