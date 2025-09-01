@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 import { getMakeupTransferList } from "../../../../src/utils/fetchAdminApi";
 import { toast } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 const MakeupTransferList = () => {
   const [rows, setRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 8;
+  const [selectedImage, setSelectedImage] = useState(null);
+  const rowsPerPage = 10;
 
   // Fetch API
   const fetchTransfers = async () => {
@@ -17,20 +19,19 @@ const MakeupTransferList = () => {
       if (res.data?.status) {
         const apiData = res.data.data;
 
-        // ✅ Flatten payload into rows for table
+        // ✅ Flatten payload.results.data into rows
         const allRows = apiData.flatMap((item) =>
-          item.payload.map((step) => ({
-            id: item.id,
-            device_id: item.device_id,
-            step: step.step,
-            title: step.step_title,
-            description: step.step_description,
-            image: step.step_product?.image_url || "/placeholder.png",
-            product: step.step_product?.product_name || "-",
-            product_url: step.step_product?.product_url || "#",
-            referenceUrl: item.reference_url,
-            selfieUrl: item.selfie_url,
-          }))
+          (item.payload?.results || []).flatMap((result, resIndex) =>
+            (result.data || []).map((img, imgIndex) => ({
+              id: item.id,
+              device_id: item.device_id,
+              request_id: item.request_id,
+              step: `Result ${resIndex + 1}`,
+              title: img.dst_id || "N/A",
+              description: result.custom_info || "-",
+              image: img.url || "/placeholder.png",
+            }))
+          )
         );
 
         setRows(allRows);
@@ -74,68 +75,47 @@ const MakeupTransferList = () => {
                 <thead className="table-light">
                   <tr>
                     <th>#</th>
+                    <th>Image</th>
                     <th>Device ID</th>
                     <th>Step</th>
-                    <th>Selfie Image</th>
-                    <th>Refrence</th>
-                    <th>Image</th>
-                    <th>Product</th>
-                    <th>Description</th>
-                    <th>Link</th>
+                    <th>Request Id</th>
+                    <th>Refrences</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentRows.length > 0 ? (
                     currentRows.map((row, index) => (
-                      <tr key={`${row.id}-${row.step}-${index}`}>
+                      <tr key={`${row.id}-${index}`}>
                         <td>{indexOfFirst + index + 1}</td>
-                        <td>{row.device_id}</td>
-                        <td>{row.step}</td>
-                        <td>
-                          {row.referenceUrl && (
-                            <img
-                              src={row.referenceUrl}
-                              alt="Reference"
-                               width="60"
-                              className="rounded"
-                            />
-                          )}
-                        </td>
-                        <td>
-                          {row.selfieUrl && (
-                            <img
-                              src={row.selfieUrl}
-                              alt="Selfie"
-                               width="60"
-                              className="rounded"
-                            />
-                          )}
-                        </td>
                         <td>
                           <img
                             src={row.image}
                             alt={row.product}
-                            width="60"
+                            width="45"
                             className="rounded"
+                            style={{ cursor: "zoom-in" }}
+                            onClick={() => setSelectedImage(row.image)}
                           />
                         </td>
-                        <td>{row.product}</td>
-                        <td>{row.description}</td>
+                        <td>{row.device_id}</td>
+                        <td>{row.step}</td>
+                        <td>{row.request_id}</td>
                         <td>
-                          <a
-                            href={row.product_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-sm btn-outline-primary"
+                          <Link
+                            to={`/dashboard/makeup-transfer/references/${row.request_id}`}
+                            className="btn btn-sm btn-outline-success me-2"
                           >
                             <FaEye />
-                          </a>
+                          </Link>
+                          {/* <button className="btn btn-sm btn-outline-danger">
+                              <FaTrash />
+                            </button> */}
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center py-3">
+                      <td colSpan="9" className="text-center py-3">
                         No steps found.
                       </td>
                     </tr>
@@ -171,6 +151,39 @@ const MakeupTransferList = () => {
           </div>
         </div>
       </div>
+
+      {/* 🔥 Modal for Image Preview */}
+      {selectedImage && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", background: "rgba(0,0,0,0.7)" }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="modal-dialog modal-dialog-centered"
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+          >
+            <div className="modal-content bg-transparent border-0">
+              <div className="modal-body text-center">
+                <img
+                  src={selectedImage}
+                  alt="Preview"
+                  className="img-fluid rounded shadow-lg"
+                  style={{ maxHeight: "80vh", cursor: "zoom-in" }}
+                />
+              </div>
+              <div className="modal-footer border-0 justify-content-center">
+                <button
+                  className="btn btn-light"
+                  onClick={() => setSelectedImage(null)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

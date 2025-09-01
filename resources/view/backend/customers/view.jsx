@@ -54,11 +54,6 @@ const CustomerDetail = () => {
           </div>
 
           <div className="col-md-6 mb-3">
-            <label className="form-label fw-semibold">User Type</label>
-            <div>{customer.user_type || 'N/A'}</div>
-          </div>
-
-          <div className="col-md-6 mb-3">
             <label className="form-label fw-semibold">Device ID</label>
             <div>{customer.device_id || 'N/A'}</div>
           </div>

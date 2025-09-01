@@ -102,11 +102,6 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/banner')}>
-              <FaImage /> Banner
-            </Link>
-          </li>
-          <li className="nav-item mt-2">
             <Link to="/dashboard/customers" className={linkStyle('/pages')}>
               <FaFileAlt /> Pages
             </Link>

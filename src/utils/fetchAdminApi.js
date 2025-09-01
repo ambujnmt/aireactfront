@@ -31,3 +31,20 @@ export const updateMakeup = async (id, data) => {
 export const getMakeupTransferList = async () => {
   return await axios.get(`${baseURL}/api/admin/makeup-transfer-list`);
 };
+
+export const getMakeupTransferReferences = async (request_id) => {
+  return await axios.get(`${baseURL}/api/admin/makeup-transfer-references/${request_id}`);
+};
+
+
+// Get customer detail
+export const getCustomerDetail = async (id) => {
+  return await axios.get(`${baseURL}/api/admin/user-detail/${id}`);
+};
+
+// ✅ Update customer details
+export const updateCustomer = async (id, formData) => {
+  return await axios.put(`${baseURL}/api/admin/user-update/${id}`, formData);
+};
+
+
