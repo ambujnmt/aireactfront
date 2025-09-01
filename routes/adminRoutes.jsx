@@ -12,10 +12,13 @@ import SubscriptionEdit from '../resources/view/backend/subscription/edit';
 import SubscriptionView from '../resources/view/backend/subscription/view';
 
 import Customer from '../resources/view/backend/customers/index';
+import CustomerEdit from '../resources/view/backend/customers/edit';
 import CustomerView from '../resources/view/backend/customers/view';
 
 import SubscribedCustomer from '../resources/view/backend/customers/SubscribedCustomers';
 import MakeupTransfer from '../resources/view/backend/makeupTransfer/index';
+import MakeupTransferReferences from '../resources/view/backend/makeupTransfer/references';
+
 import MakeupUpload from '../resources/view/backend/makeup_upload/index';
 import MakeupUploadCreate from '../resources/view/backend/makeup_upload/create';
 import MakeupUploadEdit from '../resources/view/backend/makeup_upload/edit';
@@ -57,12 +60,15 @@ const UserRoutes = () => {
         <Route path="subscription/view/:id" element={<SubscriptionView />} />
 
         <Route path="makeup-transfer" element={<MakeupTransfer />} />
+        <Route path="makeup-transfer/references/:request_id" element={<MakeupTransferReferences />} />
+
         <Route path="custom-target-makeup-upload" element={<MakeupUpload />} />
         <Route path="custom-target-makeup-upload-create" element={<MakeupUploadCreate />} />
         <Route path="custom-target-makeup-upload-edit/:id" element={<MakeupUploadEdit />} />
 
         {/*customer*/}
         <Route path="customers" element={<Customer />} />
+        <Route path="customer/edit/:id" element={<CustomerEdit />} />
         <Route path="customer/view/:id" element={<CustomerView />} />
         
         {/*SubscribedCustomer*/}
