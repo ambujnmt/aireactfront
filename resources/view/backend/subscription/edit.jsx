@@ -133,21 +133,21 @@ console.log()
                 </div>
 
                 <div className="col-md-4 mb-3">
-				  <label className="form-label">Status</label>
-				  <select
-				    name="status"
-				    className="form-control"
-				    value={formData.status}
-				    onChange={handleInputChange}
-				  >
-				    <option value="">-- Select Status --</option>
-				    <option value="1">Active</option>
-				    <option value="0">Inactive</option>
-				  </select>
-				  {errors.status && (
-				    <div className="text-danger">{errors.status[0]}</div>
-				  )}
-				</div>
+                  <label className="form-label">Status</label>
+                  <select
+                    name="status"
+                    className="form-control"
+                    value={formData.status}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-- Select Status --</option>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                  </select>
+                  {errors.status && (
+                    <div className="text-danger">{errors.status[0]}</div>
+                  )}
+                </div>
               </div>
 
               <div className="mb-3">

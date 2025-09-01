@@ -29,10 +29,11 @@ function Header() {
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'AI Subscription', path: '/dashboard/ai-feature' },
     { name: 'Makeup Upload', path: '/dashboard/custom-target-makeup-upload' },
-    { name: 'Profile', path: '/dashboard/profile' },
+    { name: 'Makeup Transfer', path: '/dashboard/makeup-transfer' },
+    { name: 'Subscribed Customers', path: '/dashboard/subscribed-customers' },
     { name: 'Onboarding', path: '/dashboard/onboarding' },
-    { name: 'Setting', path: '/dashboard/configration' },
-    { name: 'Customer', path: '/dashboard/customers' },
+    { name: 'Configuration', path: '/dashboard/configration' },
+    { name: 'Customers', path: '/dashboard/customers' },
   ];
 
   useEffect(() => {
@@ -157,7 +158,7 @@ function Header() {
         {/* Right Side */}
         <div className="d-flex align-items-center gap-4">
           {/* Notification */}
-          <div className="position-relative" ref={notifRef}>
+          {/* <div className="position-relative" ref={notifRef}>
             <FaBell
               className="fs-5 text-secondary dropdown-toggle"
               style={{ cursor: 'pointer' }}
@@ -189,7 +190,7 @@ function Header() {
                 <span className="dropdown-item text-wrap">📢 Server updated successfully</span>
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Profile */}
           <div className="position-relative" ref={profileRef}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -8,85 +8,133 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { getMakeupTransferList, getCustomerList, getSubscriptionList } from "../../../src/utils/fetchAdminApi";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-// Dummy card data
-const cardData = [
-  { title: 'Weekly Sales', value: '₹714k', color: 'primary', icon: 'shopping-bag' },
-  { title: 'New Users', value: '1.35M', color: 'success', icon: 'user' },
-  { title: 'Purchase Orders', value: '1.72M', color: 'warning', icon: 'shopping-cart' },
-  { title: 'Messages', value: '234', color: 'danger', icon: 'envelope' },
-];
-
-// Chart data
-const chartData = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  datasets: [
-    {
-      label: 'Earnings (₹)',
-      data: [12000, 19000, 3000, 5000, 20000, 30000, 25000],
-      backgroundColor: '#0d6efd',
-      borderRadius: 8,
-    },
-  ],
-};
-
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-  },
-};
-
-const user = JSON.parse(localStorage.getItem('user'));
-const userName = user?.name || 'User';
-
 const Dashboard = () => {
+  const [makeupCount, setMakeupCount] = useState(0);
+  const [customerCount, setCustomerCount] = useState(0);
+  const [subscriptionCount, setSubscriptionCount] = useState(0);
+  const [monthlyCustomers, setMonthlyCustomers] = useState(Array(12).fill(0));
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user?.name || 'User';
+
+  // Fetch Makeup Count
+  useEffect(() => {
+    const fetchMakeupCount = async () => {
+      try {
+        const res = await getMakeupTransferList();
+        setMakeupCount(res.data.data?.length || 0);
+      } catch (err) {
+        console.error('Error fetching makeup list:', err);
+      }
+    };
+    fetchMakeupCount();
+  }, []);
+
+  // Fetch Customer Count & Monthly Registration
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const res = await getCustomerList();
+        const customers = res.data.data || [];
+        setCustomerCount(customers.length);
+
+        const monthlyData = Array(12).fill(0);
+        customers.forEach(c => {
+          if(c.created_at){
+            const month = new Date(c.created_at).getMonth(); // 0-11
+            monthlyData[month]++;
+          }
+        });
+        setMonthlyCustomers(monthlyData);
+      } catch (err) {
+        console.error('Error fetching customer list:', err);
+      }
+    };
+    fetchCustomers();
+  }, []);
+
+  // Fetch Subscription Count
+  useEffect(() => {
+    const fetchSubscriptions = async () => {
+      try {
+        const res = await getSubscriptionList();
+        setSubscriptionCount(res.data.data?.length || 0);
+      } catch (err) {
+        console.error('Error fetching subscription list:', err);
+      }
+    };
+    fetchSubscriptions();
+  }, []);
+
+  const cardData = [
+    { title: 'Makeup Items', value: makeupCount, color: 'primary', icon: 'magic' },
+    { title: 'Total Customers', value: customerCount, color: 'success', icon: 'user' },
+    { title: 'Subscribed Customers', value: 2, color: 'warning', icon: 'users' },
+    { title: 'Subscription Plans', value: subscriptionCount, color: 'danger', icon: 'list' },
+  ];
+
+  const chartData = {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      {
+        label: 'Customers Registered',
+        data: monthlyCustomers,
+        backgroundColor: '#0d6efd',
+        borderRadius: 8
+      }
+    ]
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' }
+    }
+  };
+
   return (
     <div className="container-fluid py-4">
-      {/* Page Title */}
+      {/* Greeting */}
       <div className="mb-4">
         <h2 className="fw-bold">Hi {userName} 👋</h2>
         <p className="text-muted mb-0">Here's your analytics dashboard overview</p>
       </div>
 
       {/* Stat Cards */}
-        <div className="row g-4">
-          {cardData.map((item, index) => (
-            <div className="col-12 col-sm-6 col-lg-3" key={index}>
-              <div
-                className={`card text-white bg-${item.color} shadow-sm border-0`}
-                style={{
-                  minHeight: '160px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  padding: '20px',
-                  borderRadius: '12px',
-                }}
-              >
-                {/* Top Left Icon */}
-                <div className="d-flex align-items-center justify-content-start">
-                  <i className={`fa fa-${item.icon} fa-2x`} style={{ opacity: 0.85 }}></i>
-                </div>
-
-                {/* Centered Text */}
-                <div className="text-start mt-3">
-                  <h6 className="text-uppercase small mb-1">{item.title}</h6>
-                  <h4 className="fw-bold mb-0">{item.value}</h4>
-                </div>
+      <div className="row g-4">
+        {cardData.map((item, index) => (
+          <div className="col-12 col-sm-6 col-lg-3" key={index}>
+            <div
+              className={`card text-white bg-${item.color} shadow-sm border-0`}
+              style={{
+                minHeight: '160px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                padding: '20px',
+                borderRadius: '12px',
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-start">
+                <i className={`fa fa-${item.icon} fa-2x`} style={{ opacity: 0.85 }}></i>
+              </div>
+              <div className="text-start mt-3">
+                <h6 className="text-uppercase small mb-1">{item.title}</h6>
+                <h4 className="fw-bold mb-0">{item.value}</h4>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Chart Section */}
+      {/* Monthly Customer Chart */}
       <div className="card shadow-sm mt-4">
         <div className="card-header bg-white">
-          <h5 className="mb-0 fw-bold">Earnings Overview</h5>
+          <h5 className="mb-0 fw-bold">Monthly Customer Registration</h5>
         </div>
         <div className="card-body">
           <Bar data={chartData} options={chartOptions} />

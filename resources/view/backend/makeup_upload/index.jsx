@@ -85,12 +85,12 @@ const Dashboard = () => {
                         <td>{upload.title}</td>
                         <td>{upload.description}</td>
                         <td>
-                          <button
+                          {/* <button
                             className="btn btn-sm btn-outline-primary me-2"
                             onClick={() => handleView(upload.id)}
                           >
                             <FaEye />
-                          </button>
+                          </button> */}
                           <button
                             className="btn btn-sm btn-outline-success me-2"
                             onClick={() => handleEdit(upload.id)}
@@ -98,7 +98,7 @@ const Dashboard = () => {
                             <FaEdit />
                           </button>
                           <button
-                            className="btn btn-sm btn-outline-danger"
+                            className="btn btn-sm btn-outline-danger me-2"
                             onClick={() => handleDelete(upload.id)}
                           >
                             <FaTrash />

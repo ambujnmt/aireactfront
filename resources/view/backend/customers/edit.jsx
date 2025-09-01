@@ -10,10 +10,11 @@ const CustomerEdit = () => {
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     device_id: "",
+    status: "",
     onboarding_options: {},
   });
 
-  // ✅ Fetch customer detail
+  // Fetch customer detail
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
@@ -22,6 +23,7 @@ const CustomerEdit = () => {
           const customer = res.data.data;
           setFormData({
             device_id: customer.device_id || "",
+            status: customer.status || "",
             onboarding_options: customer.onboarding_options || {},
           });
         }
@@ -55,7 +57,7 @@ const CustomerEdit = () => {
     }));
   };
 
-  // ✅ Submit form
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -78,7 +80,7 @@ const CustomerEdit = () => {
           </button>
         </div>
 
-        {/* ✅ Loading Indicator on Top */}
+        {/* Loading Indicator */}
         {loading && (
           <div className="text-center mb-3">
             <div className="spinner-border text-primary" role="status" />
@@ -89,18 +91,32 @@ const CustomerEdit = () => {
         <form onSubmit={handleSubmit}>
           <div className="row mb-3">
             {/* Device ID */}
-            <div className="col-md-12 mb-3">
+            <div className="col-md-6 mb-3">
               <label className="form-label fw-semibold">Device ID</label>
               <input
                 type="text"
                 name="device_id"
                 readOnly
-                value={formData.device_id}
-                onChange={handleChange}
+                value={formData.device_id || ""}
                 className="form-control"
-                placeholder="Enter device ID"
-                disabled={loading}
               />
+            </div>
+
+            {/* Status */}
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Status</label>
+              <select
+                name="status"
+                className="form-control"
+                value={formData.status || ""}
+                onChange={handleChange}
+              >
+                <option value="">-- Select Status --</option>
+                <option value="active">Active</option>
+                <option value="inActive">Inactive</option>
+                <option value="banned">Banned</option>
+                <option value="rejected">Rejected</option>
+              </select>
             </div>
 
             {/* Onboarding Options */}
@@ -110,16 +126,11 @@ const CustomerEdit = () => {
                 Object.entries(formData.onboarding_options || {}).map(
                   ([key, value], index) => (
                     <div key={index} className="d-flex mb-2">
-                      <input
-                        type="text"
-                        className="form-control me-2"
-                        value={key}
-                        readOnly
-                      />
+                      <input type="text" className="form-control me-2" value={key} readOnly />
                       <input
                         type="text"
                         className="form-control"
-                        value={value}
+                        value={value || ""}
                         onChange={(e) => handleOptionChange(key, e.target.value)}
                       />
                     </div>
