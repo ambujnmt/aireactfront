@@ -4,7 +4,7 @@ import AppLayout from '../resources/view/backend/layouts/AppLayout';
 import Dashboard from '../resources/view/backend/Dashboard';
 import Login from '../resources/view/backend/inc/Login';
 import Logout from '../resources/view/backend/inc/Logout';
-
+import Privacy from '../resources/view/frontend/privacy';
 
 import SubscriptionList from '../resources/view/backend/subscription/index';
 import SubscriptionCreate from '../resources/view/backend/subscription/create';
@@ -39,6 +39,7 @@ const UserRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/admin/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/privacy" element={<Privacy />} />
 
       {/* Protected Layout with Nested Routes */}
       <Route

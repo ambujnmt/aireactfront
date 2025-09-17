@@ -57,7 +57,7 @@ function Login() {
       if (!token) {
         throw new Error('Login failed. Access token not provided.');
       }
-
+      localStorage.setItem('loginTime', Date.now());
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));
 

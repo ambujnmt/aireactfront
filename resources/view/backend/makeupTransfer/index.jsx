@@ -29,7 +29,7 @@ const MakeupTransferList = () => {
               step: `Result ${resIndex + 1}`,
               title: img.dst_id || "N/A",
               description: result.custom_info || "-",
-              image: img.url || "/placeholder.png",
+              image: item.make_transfer_image || "/placeholder.png",
             }))
           )
         );
