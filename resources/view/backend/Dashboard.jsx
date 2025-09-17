@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { getMakeupTransferList, getCustomerList, getSubscriptionList } from "../../../src/utils/fetchAdminApi";
+import { getMakeupTransferList, getCustomerList, getSubscriptionList, getSubscribedCustomers } from "../../../src/utils/fetchAdminApi";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -16,6 +16,7 @@ const Dashboard = () => {
   const [makeupCount, setMakeupCount] = useState(0);
   const [customerCount, setCustomerCount] = useState(0);
   const [subscriptionCount, setSubscriptionCount] = useState(0);
+   const [subscribedCount, setSubscribedCustomers] = useState(0);
   const [monthlyCustomers, setMonthlyCustomers] = useState(Array(12).fill(0));
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -32,6 +33,18 @@ const Dashboard = () => {
       }
     };
     fetchMakeupCount();
+  }, []);
+
+  useEffect(() => {
+    const fetchSubscribedCount = async () => {
+      try {
+        const res = await getSubscribedCustomers();
+        setSubscribedCustomers(res.data.data?.length || 0);
+      } catch (err) {
+        console.error('Error fetching subscribed list:', err);
+      }
+    };
+    fetchSubscribedCount();
   }, []);
 
   // Fetch Customer Count & Monthly Registration
@@ -72,8 +85,8 @@ const Dashboard = () => {
 
   const cardData = [
     { title: 'Makeup Items', value: makeupCount, color: 'primary', icon: 'magic' },
-    { title: 'Total Customers', value: customerCount, color: 'success', icon: 'user' },
-    { title: 'Subscribed Customers', value: 2, color: 'warning', icon: 'users' },
+    { title: 'Total Customers', value: customerCount, color: 'success', icon: 'users' },
+    { title: 'Subscribed Customers', value: subscribedCount, color: 'warning', icon: 'users' },
     { title: 'Subscription Plans', value: subscriptionCount, color: 'danger', icon: 'list' },
   ];
 
