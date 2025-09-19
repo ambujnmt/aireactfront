@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   FaCheckCircle, FaUser, FaBox, FaBlog, FaChevronDown, FaChevronUp,
-  FaStar, FaImage, FaListAlt, FaGlobe , FaCogs, FaFacebookF
+  FaStar, FaImage, FaListAlt, FaGlobe , FaCogs, FaFacebookF, FaFileAlt
 } from 'react-icons/fa';
 import illustration from '../../../../public/assets/images/logo/log.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -97,20 +97,34 @@ const SideBar = () => {
 
           {/* Section: Other Static Links */}
           <li className="nav-item mt-2">
-            <Link to="/dashboard/subscribed-customers" className={linkStyle('/highlights')}>
+            <Link to="/dashboard/subscribed-customers" className={linkStyle('/subscribed-customers')}>
               <FaStar /> Subscribed 
             </Link>
           </li>
-          {/* <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/pages')}>
-              <FaFileAlt /> Pages
+          <li className="nav-item mt-2">
+            <Link to="/dashboard/send-notification" className={linkStyle('/send-notification')}>
+              <FaFileAlt /> Promotional
+            </Link>
+          </li>
+
+          {/* Reports Section */}
+          {/* <li className="text-uppercase small text-muted mt-4 mb-2 px-2">Reports</li>
+          <li className="nav-item mt-2">
+            <Link to="/dashboard/reports/products" className={linkStyle('/dashboard/reports/products')}>
+              <FaBox /> Products Report
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/customers" className={linkStyle('/social-media')}>
-              <FaFacebookF /> Social Media
+            <Link to="/dashboard/reports/makeup" className={linkStyle('/dashboard/reports/makeup')}>
+              <FaImage /> Makeup Report
             </Link>
           </li> */}
+          <li className="nav-item mt-2">
+            <Link to="/dashboard/login-session" className={linkStyle('/dashboard/login-session')}>
+              <FaBox /> Customer Report
+            </Link>
+          </li>
+
           <li className="nav-item mt-2">
             <Link to="/dashboard/configration" className={linkStyle('/dashboard/configration')}>
               <FaCogs /> Configuration

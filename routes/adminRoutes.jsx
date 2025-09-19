@@ -27,9 +27,13 @@ import Onboarding from '../resources/view/backend/onboarding/index';
 import CreateOnboardingQuestion from '../resources/view/backend/onboarding/create';
 import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
 
+import Notification from '../resources/view/backend/notification/create';
+import LoginSession from '../resources/view/backend/loginSession/index';
+
 import AdminProfile from '../resources/view/backend/profile/';
 import Configration from '../resources/view/backend/configration/index';
 import PrivateRoute from './privateRoute';
+
 
 const UserRoutes = () => {
   return (
@@ -74,6 +78,10 @@ const UserRoutes = () => {
         
         {/*SubscribedCustomer*/}
         <Route path="subscribed-customers" element={<SubscribedCustomer />} />
+
+        {/* Notification */}
+        <Route path="send-notification" element={<Notification />} />
+        <Route path="login-session" element={<LoginSession />} />
 
         {/*Onboarding*/}
         <Route path="onboarding" element={<Onboarding />} />

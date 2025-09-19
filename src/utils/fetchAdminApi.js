@@ -59,4 +59,14 @@ export const getSubscribedCustomers = async () => {
   return await axios.get(`${baseURL}/api/admin/subscribed-customers`);
 };
 
+export const sendNotification = async (data) => {
+  return await axios.post(`${baseURL}/api/admin/notifications/send-promo`, data); 
+};
+
+export const fetchSessionList = async () => {
+  return await axios.get(`${baseURL}/api/admin/user-session-list`);
+};
+
+
+
 
