@@ -108,17 +108,17 @@ const SideBar = () => {
           </li>
 
           {/* Reports Section */}
-          {/* <li className="text-uppercase small text-muted mt-4 mb-2 px-2">Reports</li>
+          <li className="text-uppercase small text-muted mt-4 mb-2 px-2">Reports</li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/reports/products" className={linkStyle('/dashboard/reports/products')}>
+            <Link to="/dashboard/product-report" className={linkStyle('/dashboard/reports/products')}>
               <FaBox /> Products Report
             </Link>
           </li>
           <li className="nav-item mt-2">
-            <Link to="/dashboard/reports/makeup" className={linkStyle('/dashboard/reports/makeup')}>
+            <Link to="/dashboard/makeup-report" className={linkStyle('/dashboard/reports/makeup')}>
               <FaImage /> Makeup Report
             </Link>
-          </li> */}
+          </li>
           <li className="nav-item mt-2">
             <Link to="/dashboard/login-session" className={linkStyle('/dashboard/login-session')}>
               <FaBox /> Customer Report
