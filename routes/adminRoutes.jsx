@@ -30,6 +30,9 @@ import EditOnboardingQuestion from '../resources/view/backend/onboarding/edit';
 import Notification from '../resources/view/backend/notification/create';
 import LoginSession from '../resources/view/backend/loginSession/index';
 
+import MakeupReport from '../resources/view/backend/reports/makeup';
+import ProductReport from '../resources/view/backend/reports/products';
+
 import AdminProfile from '../resources/view/backend/profile/';
 import Configration from '../resources/view/backend/configration/index';
 import PrivateRoute from './privateRoute';
@@ -82,6 +85,11 @@ const UserRoutes = () => {
         {/* Notification */}
         <Route path="send-notification" element={<Notification />} />
         <Route path="login-session" element={<LoginSession />} />
+
+        {/* Reports */}
+
+        <Route path="makeup-report" element={<MakeupReport />} />
+        <Route path="product-report" element={<ProductReport />} />
 
         {/*Onboarding*/}
         <Route path="onboarding" element={<Onboarding />} />

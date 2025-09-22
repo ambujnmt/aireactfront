@@ -68,5 +68,14 @@ export const fetchSessionList = async () => {
 };
 
 
+export const fetchProductReport = async () => {
+  return await axios.get(`${baseURL}/api/admin/product-report`);
+};
+
+export const fetchMakeupReport = async () => {
+  return await axios.get(`${baseURL}/api/admin/makeup-report`);
+};
+
+
 
 
