@@ -76,6 +76,11 @@ export const fetchMakeupReport = async () => {
   return await axios.get(`${baseURL}/api/admin/makeup-report`);
 };
 
+// Get customer detail
+export const getSubscribedCustomerDetail = async (id) => {
+  return await axios.get(`${baseURL}/api/admin/subscribed-customer-view/${id}`);
+};
+
 
 
 

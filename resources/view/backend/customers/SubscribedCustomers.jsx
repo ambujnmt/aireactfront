@@ -37,16 +37,17 @@ const SubscribedCustomers = () => {
     fetchCustomers();
   }, []);
 
-  const handleView = (id) => navigate(`/admin/dashboard/customer/view/${id}`);
-  const handleEdit = (id) => navigate(`/admin/dashboard/customer/edit/${id}`);
-  const handleDelete = (id) => confirmDelete(`/api/admin/delete/user/${id}`, fetchCustomers);
+  const handleView = (id) => navigate(`/dashboard/subscribed-customer-view/${id}`);
+  const handleDelete = (id) =>
+    confirmDelete(`/api/admin/delete/subscribedCustomer/${id}`, fetchCustomers);
 
   // Filter and paginate
   const filteredCustomers = customers.filter(
     (c) =>
       c.device_id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.subscription_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.payment_type?.toLowerCase().includes(searchTerm.toLowerCase())
+      c.product_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.plan_type?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.payment_id?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const indexOfLast = currentPage * customersPerPage;
@@ -62,7 +63,9 @@ const SubscribedCustomers = () => {
             <h2 className="fw-bold mb-1">Subscribed Customers</h2>
             <p className="text-muted mb-0">List of active subscription users</p>
           </div>
-          <button className="btn btn-secondary" onClick={() => navigate(-1)}>← Back</button>
+          <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+            ← Back
+          </button>
         </div>
 
         <div className="card shadow-sm">
@@ -71,7 +74,7 @@ const SubscribedCustomers = () => {
             <input
               type="text"
               className="form-control w-50"
-              placeholder="Search by device, plan or payment type..."
+              placeholder="Search by device, product, plan or payment..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -96,10 +99,11 @@ const SubscribedCustomers = () => {
                     <tr>
                       <th>#</th>
                       <th>Device ID</th>
-                      <th>Subscription</th>
+                      <th>Product</th>
                       <th>Plan Type</th>
                       <th>Price</th>
-                      <th>Features</th>
+                      <th>Start Date</th>
+                      <th>Expiry Date</th>
                       <th>Payment</th>
                       <th>Actions</th>
                     </tr>
@@ -110,26 +114,50 @@ const SubscribedCustomers = () => {
                         <tr key={customer.id}>
                           <td>{indexOfFirst + index + 1}</td>
                           <td>{customer.device_id}</td>
-                          <td>{customer.subscription_name}</td>
+                          <td>{customer.product_name}</td>
                           <td>{customer.plan_type}</td>
-                          <td>${customer.price}</td>
-                          <td>{customer.features}</td>
+                          <td>${customer.payment_price}</td>
                           <td>
-                            {customer.payment_type} ({customer.payment_mode}) -{' '}
-                            <span className={customer.payment_status === 'success' ? 'text-success' : 'text-danger'}>
-                              {customer.payment_status}
+                            {customer.start_date
+                              ? new Date(customer.start_date).toLocaleString()
+                              : '-'}
+                          </td>
+                          <td>
+                            {customer.expiry_date
+                              ? new Date(customer.expiry_date).toLocaleString()
+                              : '-'}
+                          </td>
+                          <td>
+                            {customer.payment_id} -{' '}
+                            <span
+                              className={
+                                customer.payment_status === 'success'
+                                  ? 'text-success'
+                                  : 'text-danger'
+                              }
+                            >
+                              {customer.payment_status || 'pending'}
                             </span>
                           </td>
                           <td>
-                            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(customer.id)}><FaEye /></button>
-                            <button className="btn btn-sm btn-outline-success me-2" onClick={() => handleEdit(customer.id)}><FaEdit /></button>
-                            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(customer.id)}><FaTrash /></button>
+                            <button
+                              className="btn btn-sm btn-outline-primary me-2"
+                              onClick={() => handleView(customer.id)}
+                            >
+                              <FaEye />
+                            </button>
+                            <button
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => handleDelete(customer.id)}
+                            >
+                              <FaTrash />
+                            </button>
                           </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="8" className="text-center py-3">
+                        <td colSpan="10" className="text-center py-3">
                           No subscribed customers found.
                         </td>
                       </tr>
@@ -139,7 +167,9 @@ const SubscribedCustomers = () => {
               </div>
               <div className="p-3 border-top d-flex justify-content-between align-items-center">
                 <span>
-                  Showing {indexOfFirst + 1} to {Math.min(indexOfLast, filteredCustomers.length)} of {filteredCustomers.length} entries
+                  Showing {indexOfFirst + 1} to{' '}
+                  {Math.min(indexOfLast, filteredCustomers.length)} of{' '}
+                  {filteredCustomers.length} entries
                 </span>
                 {totalPages > 1 && (
                   <Pagination

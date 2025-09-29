@@ -16,6 +16,7 @@ import CustomerEdit from '../resources/view/backend/customers/edit';
 import CustomerView from '../resources/view/backend/customers/view';
 
 import SubscribedCustomer from '../resources/view/backend/customers/SubscribedCustomers';
+import SubscribedCustomerView from '../resources/view/backend/customers/SubscribedCustomerView';
 import MakeupTransfer from '../resources/view/backend/makeupTransfer/index';
 import MakeupTransferReferences from '../resources/view/backend/makeupTransfer/references';
 
@@ -81,6 +82,7 @@ const UserRoutes = () => {
         
         {/*SubscribedCustomer*/}
         <Route path="subscribed-customers" element={<SubscribedCustomer />} />
+        <Route path="subscribed-customer-view/:id" element={<SubscribedCustomerView />} />
 
         {/* Notification */}
         <Route path="send-notification" element={<Notification />} />
