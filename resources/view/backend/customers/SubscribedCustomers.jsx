@@ -14,6 +14,7 @@ const SubscribedCustomers = () => {
   const customersPerPage = 10;
 
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   // Fetch subscribed customers
   const fetchCustomers = async () => {
@@ -39,7 +40,7 @@ const SubscribedCustomers = () => {
 
   const handleView = (id) => navigate(`/dashboard/subscribed-customer-view/${id}`);
   const handleDelete = (id) =>
-    confirmDelete(`/api/admin/delete/subscribedCustomer/${id}`, fetchCustomers);
+    confirmDelete(`${BASE_URL}/delete/subscribedCustomer/${id}`, fetchCustomers);
 
   // Filter and paginate
   const filteredCustomers = customers.filter(
