@@ -71,7 +71,7 @@ const SubscribedCustomerDetail = () => {
                   {subscription?.payment_id} -{" "}
                   <span
                     className={
-                      subscription?.payment_status === "success"
+                      subscription?.payment_status === "done"
                         ? "text-success"
                         : "text-danger"
                     }
@@ -81,6 +81,20 @@ const SubscribedCustomerDetail = () => {
                 </>
               )}
             </p>
+            {!loading && subscription?.subscription_status === "cancelled" && (
+                <p>
+                  <strong>Subscription Status:</strong>{" "}
+                  <span className="text-danger">{subscription.subscription_status}</span>
+                </p>
+              )}
+
+              {!loading && subscription?.cancel_date && (
+                <p>
+                  <strong>Cancel Date:</strong>{" "}
+                  {new Date(subscription.cancel_date).toLocaleString()}
+                </p>
+              )}
+
           </div>
         </div>
 

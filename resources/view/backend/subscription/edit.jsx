@@ -12,26 +12,44 @@ const EditSubscriptionPlan = () => {
     subscription_name: '',
     price: '',
     plan_type: '',
+    base_plan_id: '',
+    tags: '',
     status: '',
     features: [''],
   });
-console.log()
+
   const [errors, setErrors] = useState({});
 
   // Fetch existing data
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/subscription-plan/edit/${id}`);
-        const { subscription_name, price, plan_type, status, features } = res.data.data;
+        const token = localStorage.getItem('token'); // Add token if required
+        const res = await axios.get(`${BASE_URL}/subscription-plan/edit/${id}`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+
+        const {
+          subscription_name = '',
+          price = '',
+          plan_type = '',
+          base_plan_id = '',
+          tags = '',
+          status = '',
+          features,
+        } = res.data.data;
+
         setFormData({
           subscription_name,
           price,
           plan_type,
+          base_plan_id,
+          tags,
           status,
-          features: features.length ? features : [''],
+          features: Array.isArray(features) && features.length ? features : [''],
         });
       } catch (err) {
+        console.error(err);
         toast.error('Failed to load subscription plan');
       }
     };
@@ -39,10 +57,12 @@ console.log()
     fetchData();
   }, [id]);
 
+  // Handle input changes
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handle dynamic feature changes
   const handleOptionChange = (index, value) => {
     const updated = [...formData.features];
     updated[index] = value;
@@ -58,18 +78,24 @@ console.log()
     setFormData({ ...formData, features: updated });
   };
 
-  console.log(formData);
-
+  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({}); // Clear previous errors
+
     try {
-      await axios.post(`${BASE_URL}/subscription-plan/update/${id}`, formData);
+      const token = localStorage.getItem('token'); // Add token if required
+      await axios.post(`${BASE_URL}/subscription-plan/update/${id}`, formData, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+
       toast.success('Subscription updated successfully!');
       navigate(-1);
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors || {});
       } else {
+        console.error(error);
         toast.error('Something went wrong!');
       }
     }
@@ -89,6 +115,7 @@ console.log()
         <div className="card shadow-sm">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
+              {/* Subscription Name */}
               <div className="mb-3">
                 <label className="form-label">Subscription Name</label>
                 <input
@@ -103,6 +130,7 @@ console.log()
                 )}
               </div>
 
+              {/* Price, Plan Type, Status */}
               <div className="row">
                 <div className="col-md-4 mb-3">
                   <label className="form-label">Price</label>
@@ -113,9 +141,7 @@ console.log()
                     value={formData.price}
                     onChange={handleInputChange}
                   />
-                  {errors.price && (
-                    <div className="text-danger">{errors.price[0]}</div>
-                  )}
+                  {errors.price && <div className="text-danger">{errors.price[0]}</div>}
                 </div>
 
                 <div className="col-md-4 mb-3">
@@ -127,9 +153,7 @@ console.log()
                     value={formData.plan_type}
                     onChange={handleInputChange}
                   />
-                  {errors.plan_type && (
-                    <div className="text-danger">{errors.plan_type[0]}</div>
-                  )}
+                  {errors.plan_type && <div className="text-danger">{errors.plan_type[0]}</div>}
                 </div>
 
                 <div className="col-md-4 mb-3">
@@ -144,12 +168,40 @@ console.log()
                     <option value="1">Active</option>
                     <option value="0">Inactive</option>
                   </select>
-                  {errors.status && (
-                    <div className="text-danger">{errors.status[0]}</div>
-                  )}
+                  {errors.status && <div className="text-danger">{errors.status[0]}</div>}
                 </div>
               </div>
 
+              {/* Base Plan ID & Tags */}
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Base Plan Id</label>
+                  <input
+                    type="text"
+                    name="base_plan_id"
+                    className="form-control"
+                    value={formData.base_plan_id}
+                    onChange={handleInputChange}
+                  />
+                  {errors.base_plan_id && (
+                    <div className="text-danger">{errors.base_plan_id[0]}</div>
+                  )}
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Tags</label>
+                  <input
+                    type="text"
+                    name="tags"
+                    className="form-control"
+                    value={formData.tags}
+                    onChange={handleInputChange}
+                  />
+                  {errors.tags && <div className="text-danger">{errors.tags[0]}</div>}
+                </div>
+              </div>
+
+              {/* Features */}
               <div className="mb-3">
                 <label className="form-label">Features</label>
                 {formData.features.map((feature, index) => (
@@ -171,9 +223,7 @@ console.log()
                     )}
                   </div>
                 ))}
-                {errors.features && (
-                  <div className="text-danger">{errors.features[0]}</div>
-                )}
+                {errors.features && <div className="text-danger">{errors.features[0]}</div>}
                 <button
                   type="button"
                   className="btn btn-sm btn-outline-primary text-white bg-brand mt-2"
@@ -183,6 +233,7 @@ console.log()
                 </button>
               </div>
 
+              {/* Submit */}
               <button type="submit" className="btn btn-success mt-3">
                 Update Subscription
               </button>

@@ -102,8 +102,8 @@ const SubscribedCustomers = () => {
                       <th>Device ID</th>
                       <th>Product</th>
                       <th>Plan Type</th>
-                      <th>Price</th>
-                      <th>Start Date</th>
+                      {/* <th>Price</th> */}
+                      {/* <th>Start Date</th> */}
                       <th>Expiry Date</th>
                       <th>Payment</th>
                       <th>Actions</th>
@@ -117,22 +117,27 @@ const SubscribedCustomers = () => {
                           <td>{customer.device_id}</td>
                           <td>{customer.product_name}</td>
                           <td>{customer.plan_type}</td>
-                          <td>${customer.payment_price}</td>
-                          <td>
+                          {/* <td>${customer.payment_price}</td> */}
+                          {/* <td>
                             {customer.start_date
                               ? new Date(customer.start_date).toLocaleString()
                               : '-'}
+                          </td> */}
+                          <td>
+                            {customer.subscription_status === "cancelled" ? (
+                              <span className="text-danger">Cancelled</span>
+                            ) : customer.expiry_date && new Date(customer.expiry_date) <= new Date() ? (
+                              <span className="text-danger">Expired</span>
+                            ) : customer.expiry_date ? (
+                              new Date(customer.expiry_date).toLocaleString()
+                            ) : (
+                              '-'
+                            )}
                           </td>
                           <td>
-                            {customer.expiry_date
-                              ? new Date(customer.expiry_date).toLocaleString()
-                              : '-'}
-                          </td>
-                          <td>
-                            {customer.payment_id} -{' '}
                             <span
                               className={
-                                customer.payment_status === 'success'
+                                customer.payment_status === 'done'
                                   ? 'text-success'
                                   : 'text-danger'
                               }
