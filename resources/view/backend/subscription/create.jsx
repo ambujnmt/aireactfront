@@ -11,6 +11,8 @@ const CreateOnboardingQuestion = () => {
     subscription_name: '',
     price: '',
     plan_type: '',
+    base_plan_id: '',
+    tags: '',
     features: ['']
   });
 
@@ -102,6 +104,33 @@ const CreateOnboardingQuestion = () => {
                   onChange={handleInputChange}
                 />
                 {errors.plan_type && <div className="text-danger">{errors.plan_type[0]}</div>}
+              </div>
+            </div>
+
+
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label className="form-label">Base Plan Id</label>
+                <input
+                  type="text"
+                  name="base_plan_id"
+                  className="form-control"
+                  value={formData.base_plan_id || ''}
+                  onChange={handleInputChange}
+                />
+                {errors.base_plan_id && <div className="text-danger">{errors.base_plan_id[0]}</div>}
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <label className="form-label">Tags</label>
+                <input
+                  type="text"
+                  name="tags"
+                  className="form-control"
+                  value={formData.tags || ''}
+                  onChange={handleInputChange}
+                />
+                {errors.tags && <div className="text-danger">{errors.tags[0]}</div>}
               </div>
             </div>
 

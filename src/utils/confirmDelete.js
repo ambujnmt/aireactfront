@@ -13,7 +13,7 @@ export const confirmDelete = async (endpoint, callback) => {
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
+    cancelButtonColor: "#b2d3f3ff",
     confirmButtonText: "Yes, delete it!",
   });
 

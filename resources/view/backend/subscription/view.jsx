@@ -11,6 +11,8 @@ const SubscriptionDetail = () => {
     subscription_name: '',
     price: '',
     plan_type: '',
+    base_plan_id: '',
+    tags: '',
     features: [],
   });
 
@@ -51,6 +53,18 @@ const SubscriptionDetail = () => {
               <div className="col-md-6 mb-3">
                 <h5 className="text-muted">Plan Type</h5>
                 <p className="fs-5">{plan.plan_type || 'Loading...'}</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <h5 className="text-muted">Base Plan Id</h5>
+                <p className="fs-5">{plan.base_plan_id || 'Loading...'}</p>
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <h5 className="text-muted">Tags</h5>
+                <p className="fs-5">{plan.tags || 'Loading...'}</p>
               </div>
             </div>
 

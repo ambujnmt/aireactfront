@@ -26,6 +26,8 @@ const Subscription = () => {
           name: item.subscription_name,
           price: item.price,
           planType: item.plan_type,
+          basePlanId: item.base_plan_id,
+          tags: item.tags,
           status: item.status,
           featureCount: item.features.length,
           image: item.image || 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Green_tick.png',
@@ -78,6 +80,8 @@ const Subscription = () => {
                     <th>Price</th>
                     <th>Plan Type</th>
                     <th>Features</th>
+                    <th>Base Plan Id</th>
+                    <th>Tags</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -98,6 +102,8 @@ const Subscription = () => {
                         <td>${product.price}</td>
                         <td>{product.planType}</td>
                         <td>{product.featureCount}</td>
+                        <td>{product.basePlanId}</td>
+                        <td>{product.tags}</td>
                         <td>
                           <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleView(product.id)}>
                             <FaEye />
